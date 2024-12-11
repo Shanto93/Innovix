@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
   const navLinks = (
@@ -47,12 +47,17 @@ const Navbar = () => {
         <a className="btn btn-ghost text-xl">Innovix</a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          {navLinks}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{navLinks}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        <div className="flex gap-2 items-center">
+          <Link to="/login">
+            <button className="btn btn-sm bg-black text-white">Login</button>
+          </Link>
+          <Link to="/register">
+            <button className="btn btn-sm bg-black text-white">Register</button>
+          </Link>
+        </div>
       </div>
     </div>
   );
