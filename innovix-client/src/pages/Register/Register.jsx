@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const Register = () => {
   const { createUser } = useAuth();
@@ -11,9 +12,49 @@ const Register = () => {
     watch,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => {
+    const myPromise = createUser(data.email, data.password);
+
+    // toast.promise(myPromise, {
+    //   loading: "Registering user...",
+    //   success: (user) => {
+    //     return `${user.email} registered successfully!`;
+    //   },
+    //   error: "Failed to register user. Please try again.",
+    // });
+
+    toast.promise(myPromise, {
+      loading: "Registering user...",
+      success: (user) => (
+        <div
+          style={{
+            backgroundColor: "green",
+            color: "white",
+            padding: "10px",
+            borderRadius: "5px",
+          }}
+        >
+          {user.email} registered successfully!
+        </div>
+      ),
+      error: (
+        <div
+          style={{
+            backgroundColor: "red",
+            color: "white",
+            padding: "10px",
+            borderRadius: "5px",
+          }}
+        >
+          Failed to register user. Please try again.
+        </div>
+      ),
+    });
+
     console.log(data);
   };
+
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">

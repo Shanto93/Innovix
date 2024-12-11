@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-import { app } from "../firebase-config/firebase";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -9,10 +8,12 @@ import {
   signInWithPopup,
   onAuthStateChanged,
 } from "firebase/auth";
+import { app } from "./../firebase-config/firebase";
 
 export const AuthContext = createContext(null);
 
 const auth = getAuth(app);
+
 // eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -20,44 +21,76 @@ const AuthProvider = ({ children }) => {
 
   const googleProvider = new GoogleAuthProvider();
 
-  const googleLogin = () => {
-    return signInWithPopup(auth, googleProvider);
+  const googleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      return result.user; // Returns the logged-in user
+    } catch (error) {
+      console.error("Google login failed: ", error.message);
+      throw error;
+    }
   };
 
-  const createUser = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+  const createUser = async (email, password) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      return userCredential.user;
+    } catch (error) {
+      console.error("User creation failed: ", error.message);
+      throw error;
+    }
   };
 
-  const loginUser = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
+  const loginUser = async (email, password) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      return userCredential.user;
+    } catch (error) {
+      console.error("Login failed: ", error.message);
+      throw error;
+    }
   };
 
-  const logoutUser = () => {
-    return signOut(auth);
+  const logoutUser = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error("Logout failed: ", error.message);
+      throw error;
+    }
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
+      // console.log(currentUser);
     });
 
-    return () => {
-      unsubscribe();
-    };
+    return () => unsubscribe();
   }, []);
 
   const authInfo = {
     user,
     loading,
+    googleLogin,
     createUser,
     loginUser,
     logoutUser,
-    googleLogin,
   };
 
   return (
-    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={authInfo}>
+      {!loading ? children : <div>Loading...</div>}
+    </AuthContext.Provider>
   );
 };
 
