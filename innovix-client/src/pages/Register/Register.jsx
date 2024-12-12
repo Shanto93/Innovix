@@ -164,8 +164,8 @@ const Register = () => {
               Already have account?{" "}
               <Link to="/login">
                 <span className="text-blue-500 text-sm">Login</span>
-              </Link>{" "}
-              now{" "}
+              </Link>
+              now
             </h2>
           </form>
         </div>

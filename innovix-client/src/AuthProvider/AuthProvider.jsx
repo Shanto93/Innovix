@@ -9,6 +9,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { app } from "./../firebase-config/firebase";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 
@@ -24,7 +25,7 @@ const AuthProvider = ({ children }) => {
   const googleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      return result.user; // Returns the logged-in user
+      return result.user;
     } catch (error) {
       console.error("Google login failed: ", error.message);
       throw error;
@@ -71,8 +72,21 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoading(false);
-      console.log(currentUser);
+      if (currentUser) {
+        axios
+          .post(`http://localhost:3000/authentication`, {
+            email: currentUser.email,
+          })
+          .then((data) => {
+            if (data.data) {
+              localStorage.setItem("access-token", data?.data?.token);
+              setLoading(false);
+            }
+          });
+      } else {
+        localStorage.removeItem("access-token");
+        setLoading(false);
+      }
     });
 
     return () => unsubscribe();
