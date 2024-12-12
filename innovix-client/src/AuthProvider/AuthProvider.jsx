@@ -9,7 +9,8 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { app } from "./../firebase-config/firebase";
-import axios from "axios";
+import Loading from "../components/Loading/Loading";
+import { axiosPublic } from "../hooks/useAxiosPublic";
 
 export const AuthContext = createContext(null);
 
@@ -73,8 +74,8 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
-        axios
-          .post(`http://localhost:3000/authentication`, {
+        axiosPublic
+          .post(`/authentication`, {
             email: currentUser.email,
           })
           .then((data) => {
@@ -103,7 +104,7 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={authInfo}>
-      {!loading ? children : <div>Loading...</div>}
+      {!loading ? children : <Loading></Loading>}
     </AuthContext.Provider>
   );
 };
