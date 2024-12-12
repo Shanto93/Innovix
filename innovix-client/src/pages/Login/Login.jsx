@@ -1,6 +1,8 @@
 import { Link, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import GoogleLogin from "../../components/Authentication/GoogleLogin";
 
 const Login = () => {
   const { loginUser } = useAuth();
@@ -14,6 +16,7 @@ const Login = () => {
   const onSubmit = (data) => {
     loginUser(data.email, data.password);
     navigate("/");
+    toast.success("User sucessfully logged in");
   };
   return (
     <div className="hero bg-base-200 min-h-screen">
@@ -79,8 +82,9 @@ const Login = () => {
                 Login
               </button>
             </div>
+            <GoogleLogin></GoogleLogin>
             <h2 className="my-2">
-              New here?{" "}
+              New here?
               <Link to="/register">
                 <span className="text-blue-500 text-sm">Register</span>
               </Link>
