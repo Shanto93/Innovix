@@ -1,9 +1,10 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 
 const Login = () => {
-  const { login } = useAuth();
+  const { loginUser } = useAuth();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -11,7 +12,8 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    loginUser(data.email, data.password);
+    navigate("/");
   };
   return (
     <div className="hero bg-base-200 min-h-screen">

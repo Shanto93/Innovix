@@ -1,10 +1,11 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const Register = () => {
   const { createUser } = useAuth();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -15,6 +16,7 @@ const Register = () => {
 
   const onSubmit = (data) => {
     const myPromise = createUser(data.email, data.password);
+    navigate("/");
 
     // toast.promise(myPromise, {
     //   loading: "Registering user...",
