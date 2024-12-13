@@ -7,11 +7,14 @@ import About from "../pages/About/About";
 import ContactUs from "../pages/ContactUs/ContactUs";
 import Login from "./../pages/Login/Login";
 import Register from "./../pages/Register/Register";
+import DashboardLayout from "../layouts/DashboardLayout";
+import ErrorPage from "../pages/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -38,5 +41,9 @@ export const router = createBrowserRouter([
         element: <Register></Register>,
       },
     ],
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardLayout></DashboardLayout>,
   },
 ]);
