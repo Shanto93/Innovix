@@ -3,60 +3,152 @@ import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import GoogleLogin from "../../components/Authentication/GoogleLogin";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Register = () => {
   const { createUser } = useAuth();
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
-    const myPromise = createUser(data.email, data.password);
-    navigate("/");
+    const email = data.email;
+    const role = data.role;
+    const status = data.role === "buyer" ? "approved" : "pending";
+    const wishlist = [];
+    const userData = { email, role, status, wishlist };
 
-    // toast.promise(myPromise, {
-    //   loading: "Registering user...",
-    //   success: (user) => {
-    //     return `${user.email} registered successfully!`;
-    //   },
-    //   error: "Failed to register user. Please try again.",
-    // });
-
-    toast.promise(myPromise, {
-      loading: "Registering user...",
-      success: (user) => (
-        <div
-          style={{
-            backgroundColor: "green",
-            color: "white",
-            padding: "10px",
-            borderRadius: "5px",
-          }}
-        >
-          {user.email} registered successfully!
-        </div>
-      ),
-      error: (
-        <div
-          style={{
-            backgroundColor: "red",
-            color: "white",
-            padding: "10px",
-            borderRadius: "5px",
-          }}
-        >
-          Failed to register user. Please try again.
-        </div>
-      ),
+    const userRegistrationPromise = new Promise((resolve, reject) => {
+      createUser(data.email, data.password)
+        .then(() => {
+          axiosPublic
+            .post("/users", userData)
+            .then((res) => {
+              if (res.data?.insertedId) {
+                resolve("User registered successfully");
+              } else {
+                reject(new Error("Failed to register user"));
+              }
+            })
+            .catch((err) => {
+              reject(
+                new Error(
+                  err.response?.data?.message ||
+                    "Server error while saving user data"
+                )
+              );
+            });
+        })
+        .catch((err) => {
+          reject(
+            new Error(err.message || "Server error while registering user")
+          );
+        });
     });
 
-    console.log(data);
+    toast.promise(
+      userRegistrationPromise,
+      {
+        loading: "Registering user...",
+        success: (message) => {
+          reset();
+          return message;
+        },
+        error: (err) => {
+          reset();
+          return err.message;
+        }, // Display the actual error message
+      },
+      {
+        loading: {
+          className: "bg-blue-500 text-white",
+        },
+        success: {
+          className: "bg-green-500 text-white",
+        },
+        error: {
+          className: "bg-red-500 text-white",
+        },
+      }
+    );
+
+    userRegistrationPromise.then(() => navigate("/"));
   };
+
+  // const onSubmit = (data) => {
+  //   const email = data.email;
+  //   const role = data.role;
+  //   const status = data.role === "buyer" ? "approved" : "pending";
+  //   const wishlist = [];
+  //   const userData = { email, role, status, wishlist };
+
+  //   const userRegistrationPromise = new Promise((resolve, reject) => {
+  //     createUser(data.email, data.password)
+  //       .then(() => {
+  //         axiosPublic
+  //           .post("/users", userData)
+  //           .then((res) => {
+  //             if (res.data?.insertedId) {
+  //               resolve("User registered successfully");
+  //             } else {
+  //               reject(new Error("Failed to register user"));
+  //             }
+  //           })
+  //           .catch(() =>
+  //             reject(new Error("Error occurred while saving user data"))
+  //           );
+  //       })
+  //       .catch(() =>
+  //         reject(new Error("Error occurred while registering user"))
+  //       );
+  //   });
+
+  //   toast.promise(
+  //     userRegistrationPromise,
+  //     {
+  //       loading: "Registering user...",
+  //       success: (message) => message,
+  //       error: (err) => err.message,
+  //     },
+  //     {
+  //       loading: {
+  //         className: "bg-blue-500 text-white",
+  //       },
+  //       success: {
+  //         className: "bg-green-500 text-white",
+  //       },
+  //       error: {
+  //         className: "bg-red-500 text-white",
+  //       },
+  //     }
+  //   );
+
+  //   userRegistrationPromise.then(() => navigate("/"));
+  // };
+
+  // const onSubmit = (data) => {
+  //   const email = data.email;
+  //   const role = data.role;
+  //   const status = data.role === "buyer" ? "approved" : "pending";
+  //   const wishlist = [];
+  //   const userData = { email, role, status, wishlist };
+  //   createUser(data.email, data.password).then(() => {
+  //     axiosPublic.post("/users", userData).then((res) => {
+  //       console.log(res.data);
+  //       if (res.data?.insertedId) {
+  //         toast.success("User registered successfully");
+  //         navigate("/");
+  //       }
+  //     });
+  //   });
+  // };
 
   return (
     <div className="hero bg-base-200 min-h-screen">
@@ -148,10 +240,8 @@ const Register = () => {
                 className="select select-bordered w-full max-w-xs"
                 {...register("role", { required: true })}
               >
-                <option selected value="buyer">
-                  Buyer
-                </option>
-                <option value="seller">Seller</option>
+                <option defaultValue="buyer">buyer</option>
+                <option value="seller">seller</option>
               </select>
             </div>
             <div className="form-control mt-6">
