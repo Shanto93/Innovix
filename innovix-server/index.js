@@ -22,27 +22,41 @@ const client = new MongoClient(url, {
   },
 });
 
+const userCollection = client.db("innivixdb").collection("users");
+const productCollection = client.db("innivixdb").collection("products");
+
 const dbConnect = async () => {
   try {
     client.connect();
     console.log("Database connected Successfully");
+
+    // JWT related API
+    app.post("/authentication", async (req, res) => {
+      const userEmail = req.body;
+      const token = jwt.sign(userEmail, process.env.ACCESS_KEY_TOKEN, {
+        expiresIn: process.env.TOKEN_EXPIRATION,
+      });
+      res.send({ token });
+    });
+
+    // User related API
+
+    app.post("/users", async (req, res) => {
+      const user = req.body;
+      const query = { email: user.email };
+      const existingUser = await userCollection.findOne(query);
+      if (existingUser) {
+        return res.sendStatus({ message: "User already exists" });
+      }
+      const result = await userCollection.insertOne(user);
+      res.send(result);
+    });
   } catch (error) {
     console.log(error.name, error.message);
   }
 };
 
 dbConnect();
-
-//API
-
-// JWT related API
-app.post("/authentication", async (req, res) => {
-  const userEmail = req.body;
-  const token = jwt.sign(userEmail, process.env.ACCESS_KEY_TOKEN, {
-    expiresIn: process.env.TOKEN_EXPIRATION,
-  });
-  res.send({ token });
-});
 
 app.get("/", (req, res) => {
   res.send("Innovix server is running");
