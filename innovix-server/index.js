@@ -7,8 +7,41 @@ require("dotenv").config();
 const port = process.env.PORT || 3000;
 
 //middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5174",
+    optionsSuccessStatus: 200,
+  })
+);
 app.use(express.json());
+
+// Token verification
+const verifyToken = (req, res, next) => {
+  const authorization = req.header.authorization;
+  if (!authorization) {
+    return res.send({ message: "Unauthorized Access" });
+  }
+  const token = authorization.split(" ")[1];
+
+  jwt.verify(token, process.env.ACCESS_KEY_TOKEN, (err, decoded) => {
+    if (err) {
+      return res.send({ message: "Invalid Token" });
+    }
+    res.decoded = decoded;
+    next();
+  });
+};
+
+//verify seller
+const verifySeller = async (req, res, next) => {
+  const userEmail = req.decoded.email;
+  const query = { email: userEmail };
+  const user = await userCollection.findOne(query);
+  if (!user?.role === "seller") {
+    return res.send({ message: "Forbidden Access" });
+  }
+  next();
+};
 
 //mongoDB
 
@@ -41,6 +74,23 @@ const dbConnect = async () => {
 
     // User related API
 
+    app.get("/users/:email", async (req, res) => {
+      try {
+        const email = req.params.email;
+        const query = { email };
+        const user = await userCollection.findOne(query);
+
+        if (user) {
+          res.status(200).send(user);
+        } else {
+          res.status(404).send({ message: "User not found" });
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+        res.status(500).send({ message: "Internal server error" });
+      }
+    });
+
     app.post("/users", async (req, res) => {
       const user = req.body;
       const query = { email: user.email };
@@ -54,6 +104,14 @@ const dbConnect = async () => {
   } catch (error) {
     console.log(error.name, error.message);
   }
+
+  //Products related API
+
+  app.post("/add-product", verifyToken, verifySeller, async (req, res) => {
+    const product = req.body;
+    const result = await productCollection.insertOne(product);
+    res.send(result);
+  });
 };
 
 dbConnect();
