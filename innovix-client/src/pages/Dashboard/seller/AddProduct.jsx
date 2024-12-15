@@ -9,6 +9,7 @@ const AddProduct = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -44,6 +45,7 @@ const AddProduct = () => {
       .then((res) => {
         if (res.data.insertedId) {
           toast.success(`${title} added successfully`);
+          reset();
         }
       });
   };
