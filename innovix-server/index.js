@@ -17,7 +17,7 @@ app.use(express.json());
 
 // Token verification
 const verifyToken = (req, res, next) => {
-  const authorization = req.header.authorization;
+  const authorization = req.headers.authorization;
   if (!authorization) {
     return res.send({ message: "Unauthorized Access" });
   }
@@ -27,7 +27,7 @@ const verifyToken = (req, res, next) => {
     if (err) {
       return res.send({ message: "Invalid Token" });
     }
-    res.decoded = decoded;
+    req.decoded = decoded;
     next();
   });
 };
@@ -106,6 +106,28 @@ const dbConnect = async () => {
   }
 
   //Products related API
+
+  app.get("/all-product", async (req, res) => {
+    const { title, sort, category, brand } = req.query;
+    query = {};
+    if (title) {
+      query.title = { $regex: title, $options: "i" };
+    }
+    if (sort) {
+      const sortoptions = sort === "asc" ? 1 : -1;
+    }
+    if (category) {
+      query.category = { $regex: category, $options: "i" };
+    }
+    if (brand) {
+      query.brand = { $regex: brand, $options: "i" };
+    }
+    const product = await productCollection
+      .find(query)
+      .sort({ price: sortoptions })
+      .toArray();
+    res.json(product);
+  });
 
   app.post("/add-product", verifyToken, verifySeller, async (req, res) => {
     const product = req.body;
