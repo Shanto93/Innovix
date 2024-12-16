@@ -1,11 +1,13 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 
 const UserDropdown = () => {
   const { logoutUser } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logoutUser();
+    navigate("/");
   };
   return (
     <div className="dropdown dropdown-bottom dropdown-end">
@@ -28,7 +30,12 @@ const UserDropdown = () => {
           <NavLink to="/dashboard/overview">Dashboard</NavLink>
         </li>
         <li>
-          <button className="bg-[#fc0505] text-white hover:bg-[#ff3b3b]" onClick={handleLogout}>Logout</button>
+          <button
+            className="bg-[#fc0505] text-white hover:bg-[#ff3b3b]"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
         </li>
       </ul>
     </div>

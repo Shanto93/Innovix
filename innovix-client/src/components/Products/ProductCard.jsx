@@ -3,7 +3,7 @@ const ProductCard = ({ product }) => {
   const { title, brand, category, description, imageURL, price, stock } =
     product;
   return (
-    <div className="card rounded-md border bg-base-100 w-60 shadow-2xl shadow-blue-500/30">
+    <div className="card rounded-md border bg-base-100 w-60 shadow-2xl shadow-pink-500/30">
       <div className="relative">
         <div className="">
           <img

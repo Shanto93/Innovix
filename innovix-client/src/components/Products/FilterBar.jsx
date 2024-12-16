@@ -12,7 +12,7 @@ const FilterBar = ({
   uniqueCategorys,
 }) => {
   return (
-    <div className="border mt-5 bg-opacity-10 bg-[#28de43] p-4 w-full shadow-lime-500/30 shadow-2xl">
+    <div className="border mt-5 bg-opacity-10 bg-[#f92789] p-4 w-full shadow-pink-500/30 shadow-2xl">
       <div className="flex items-center gap-2">
         <MdOutlineFilterAlt className="text-xl" />
         <h2 className="text-lg font-semibold">Filter</h2>
@@ -26,7 +26,7 @@ const FilterBar = ({
             onChange={(e) => setBrand(e.target.value)}
             className="w-full max-w-md border p-[11px] border-black rounded-md"
           >
-            <option disabled value="">
+            <option defaultValue="" value="">
               Brand
             </option>
             {uniqueBrands.map((brandd, index) => (
@@ -44,7 +44,7 @@ const FilterBar = ({
             onChange={(e) => setCategory(e.target.value)}
             className="w-full max-w-md border p-[11px] border-black rounded-md"
           >
-            <option disabled value="">
+            <option defaultValue="" value="">
               Category
             </option>
 
