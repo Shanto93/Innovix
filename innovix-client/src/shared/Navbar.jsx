@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router";
 import useAuth from "./../hooks/useAuth";
 import UserDropdown from "../components/Home/UserDropdown";
+import logo from "../assets/innovix_logo.gif"
 
 const Navbar = () => {
   const { user } = useAuth();
@@ -8,16 +9,52 @@ const Navbar = () => {
   const navLinks = (
     <>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive
+              ? "text-[#f511c3] font-bold border-b-2 border-[#f511c3] bg-transparent rounded-none hover:bg-transparent"
+              : "text-black font-bold hover:text-[#a11883] hover:bg-transparent"
+          }
+        >
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/products">Products</NavLink>
+        <NavLink
+          to="/products"
+          className={({ isActive }) =>
+            isActive
+              ? "text-[#f511c3] font-bold border-b-2 border-[#f511c3] bg-transparent rounded-none hover:bg-transparent"
+              : "text-black font-bold hover:text-[#a11883] hover:bg-transparent"
+          }
+        >
+          Products
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/about">About</NavLink>
+        <NavLink
+          to="/about"
+          className={({ isActive }) =>
+            isActive
+              ? "text-[#f511c3] font-bold border-b-2 border-[#f511c3] bg-transparent rounded-none hover:bg-transparent"
+              : "text-black font-bold hover:text-[#a11883] hover:bg-transparent"
+          }
+        >
+          About
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/contact">Contact Us</NavLink>
+        <NavLink
+          to="/contact"
+          className={({ isActive }) =>
+            isActive
+              ? "text-[#f511c3] font-bold border-b-2 border-[#f511c3] bg-transparent rounded-none hover:bg-transparent"
+              : "text-black font-bold hover:text-[#a11883] hover:bg-transparent"
+          }
+        >
+          Contact Us
+        </NavLink>
       </li>
     </>
   );
@@ -48,7 +85,8 @@ const Navbar = () => {
             {navLinks}
           </ul>
         </div>
-        <a className="btn btn-ghost text-2xl">Innovix</a>
+        {/* <a className="btn btn-ghost text-2xl">Innovix </a> */}
+        <img className="w-32" src={logo} alt="Logo" />
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navLinks}</ul>

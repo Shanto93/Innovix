@@ -6,6 +6,7 @@ import { toast } from "sonner";
 const AddProduct = () => {
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
+
   const {
     register,
     handleSubmit,
@@ -13,14 +14,26 @@ const AddProduct = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    //upload image to imgbb ang get link
+    const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+    const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+
+    const imageFile = { image: data.imageURL[0] };
+    const res = await axiosPublic.post(image_hosting_api, imageFile, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
+    // console.log(res.data);
+
     const title = data.title;
     const brand = data.brand;
     const price = parseFloat(data.price);
     const stock = parseFloat(data.stock);
     const category = data.category;
     const description = data.description;
-    const imageURL = data.imageURL;
+    const imageURL = res.data.data.display_url;
     const email = user.email;
 
     const productData = {
@@ -33,6 +46,7 @@ const AddProduct = () => {
       description,
       email,
     };
+    // console.log(productData);
 
     const token = localStorage.getItem("access-token");
 
@@ -166,16 +180,18 @@ const AddProduct = () => {
           {/* Image URL */}
 
           <div className="flex-1">
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Image URL</span>
+            <div className="form-control w-full">
+              <label className="form-control w-full">
+                <div className="label">
+                  <span className="label-text">Image</span>
+                </div>
+                <input
+                  {...register("imageURL", { required: true })}
+                  type="file"
+                  className="file-input file-input-bordered w-full"
+                />
               </label>
-              <input
-                type="text"
-                placeholder="Image URL"
-                className="input input-bordered"
-                {...register("imageURL", { required: true })}
-              />
+
               {errors.imageURL && (
                 <p className="text-sm text-red-600 font-light">
                   Image URL is required.
@@ -205,7 +221,10 @@ const AddProduct = () => {
         </div>
 
         <div className="form-control mt-6">
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            className="btn bg-[#f511c3] text-white hover:bg-[#a11883]"
+          >
             ADD PRODUCT
           </button>
         </div>
