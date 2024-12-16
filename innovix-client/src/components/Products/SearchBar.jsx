@@ -1,9 +1,10 @@
 import { IoSearch } from "react-icons/io5";
 
-const SearchBar = () => {
+// eslint-disable-next-line react/prop-types
+const SearchBar = ({handleSearch}) => {
   return (
     <div>
-      <form className="flex items-center gap-[2px]">
+      <form className="flex items-center gap-[2px]" onSubmit={handleSearch}>
         <input
           type="text"
           name="search"

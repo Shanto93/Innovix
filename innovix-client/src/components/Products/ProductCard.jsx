@@ -33,13 +33,13 @@ const ProductCard = ({ product }) => {
           {description.length > 50 ? (
             <>
               {description.slice(0, 40)}
-              <span className="text-red-500 cursor-pointer">Read More...</span>
+              <span className="text-red-500 cursor-pointer"> Read More...</span>
             </>
           ) : (
             description
           )}
         </p>
-        <div className="flex justify-center items-center card-actions">
+        <div className="flex justify-center items-center card-actions mb-2">
           <button className="btn btn-secondary btn-sm">ADD TO WISHLIST</button>
         </div>
       </div>
