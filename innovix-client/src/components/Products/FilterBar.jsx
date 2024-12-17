@@ -1,6 +1,6 @@
+/* eslint-disable react/prop-types */
 import { MdOutlineFilterAlt } from "react-icons/md";
 import { RiResetRightLine } from "react-icons/ri";
-import PropTypes from "prop-types";
 
 const FilterBar = ({
   brand,
@@ -68,17 +68,6 @@ const FilterBar = ({
       </div>
     </div>
   );
-};
-
-// Adding PropTypes validation
-FilterBar.propTypes = {
-  brand: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
-  setBrand: PropTypes.func.isRequired,
-  setCategory: PropTypes.func.isRequired | null,
-  handleReset: PropTypes.func.isRequired | null,
-  uniqueBrands: PropTypes.arrayOf(PropTypes.string).isRequired,
-  uniqueCategorys: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default FilterBar;

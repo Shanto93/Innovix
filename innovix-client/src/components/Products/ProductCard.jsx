@@ -1,7 +1,46 @@
+import { toast } from "sonner";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useUserData from "./../../hooks/useUserData";
+import { useMutation } from "@tanstack/react-query";
+
 /* eslint-disable react/prop-types */
 const ProductCard = ({ product }) => {
-  const { title, brand, category, description, imageURL, price, stock } =
+  const { _id, title, brand, category, description, imageURL, price, stock } =
     product;
+
+  const axiosPublic = useAxiosPublic();
+  const userData = useUserData();
+
+  const { mutate: handleWishlist, refetch } = useMutation({
+    mutationFn: async () => {
+      const res = await axiosPublic.patch("/wishlist/add", {
+        productId: _id,
+        userEmail: userData.userData.email,
+      });
+      return res.data;
+    },
+    onSuccess: (data) => {
+      if (data.modifiedCount > 0) {
+        toast.success(`${title} is added to wishlist`);
+        refetch();
+      } else {
+        toast.info(`${title} is already in your wishlist`);
+      }
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error("Failed to add product to wishlist. Please try again.");
+    },
+  });
+
+  // const res = await axiosPublic.patch("/wishlist/add", {
+  //   productId: _id,
+  //   userEmail: userData.userData.email,
+  // });
+  // if (res.data.modifiedCount > 0) {
+  //   toast.success(`${title} is added to wishlist`);
+  // }
+
   return (
     <div className="bg-opacity-15 card rounded-md bg-black  border border-[#00BFFF] w-60 shadow-2xl shadow-sky-500/30 ">
       <div className="relative">
@@ -27,20 +66,27 @@ const ProductCard = ({ product }) => {
         <h2 className="card-title text-lg text-center text-white">{title} </h2>
         <div className="flex items-center w-full px-4">
           <p className="text-md font-bold text-white ">{brand} </p>
-          <p className="text-sm font-semibold text-end text-white">{category} </p>
+          <p className="text-sm font-semibold text-end text-white">
+            {category}{" "}
+          </p>
         </div>
         <p className="text-sm text-center text-white">
           {description.length > 50 ? (
             <>
               {description.slice(0, 40)}
-              <span className="text-[#FFD700] cursor-pointer"> Read More...</span>
+              <span className="text-[#FFD700] cursor-pointer">
+                {" "}
+                Read More...
+              </span>
             </>
           ) : (
             description
           )}
         </p>
         <div className="flex justify-center items-center card-actions mb-2">
-          <button className="card-btn btn-sm">ADD TO WISHLIST</button>
+          <button onClick={() => handleWishlist()} className="card-btn btn-sm">
+            ADD TO WISHLIST
+          </button>
         </div>
       </div>
     </div>
