@@ -1,9 +1,12 @@
 import { NavLink, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
+import useUserData from "../../hooks/useUserData";
 
 const UserDropdown = () => {
   const { logoutUser } = useAuth();
   const navigate = useNavigate();
+  const userdata = useUserData();
+  const totalWishlist = userdata?.userData?.wishlist?.length;
 
   const handleLogout = () => {
     logoutUser();
@@ -16,9 +19,12 @@ const UserDropdown = () => {
         role="button"
         className="btn m-1 bg-transparent border-none hover:bg-transparent"
       >
-        <div className="avatar">
-          <div className="ring-primary ring-offset-base-100 w-12 rounded-full ring ring-offset-2">
-            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+        <div className="flex">
+          <div className="badge badge-secondary">+{totalWishlist} </div>
+          <div className="avatar">
+            <div className="ring-primary ring-offset-base-100 w-12 rounded-full ring ring-offset-2">
+              <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            </div>
           </div>
         </div>
       </div>

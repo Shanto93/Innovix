@@ -9,13 +9,13 @@ const ProductCard = ({ product }) => {
     product;
 
   const axiosPublic = useAxiosPublic();
-  const userData = useUserData();
+  const {userData, refetch} = useUserData();
 
-  const { mutate: handleWishlist, refetch } = useMutation({
+  const { mutate: handleWishlist } = useMutation({
     mutationFn: async () => {
       const res = await axiosPublic.patch("/wishlist/add", {
         productId: _id,
-        userEmail: userData.userData.email,
+        userEmail: userData.email,
       });
       return res.data;
     },
@@ -75,7 +75,6 @@ const ProductCard = ({ product }) => {
             <>
               {description.slice(0, 40)}
               <span className="text-[#FFD700] cursor-pointer">
-                {" "}
                 Read More...
               </span>
             </>
