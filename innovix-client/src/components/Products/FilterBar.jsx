@@ -14,8 +14,8 @@ const FilterBar = ({
   return (
     <div className="border mt-5 bg-opacity-10 bg-[#f92789] p-4 w-full shadow-pink-500/30 shadow-2xl">
       <div className="flex items-center gap-2">
-        <MdOutlineFilterAlt className="text-xl" />
-        <h2 className="text-lg font-semibold">Filter</h2>
+        <MdOutlineFilterAlt className="subtitle text-xl" />
+        <h2 className="subtitle text-lg font-semibold">Filter</h2>
       </div>
 
       <div className="flex flex-col items-center gap-2 mt-5 w-full">

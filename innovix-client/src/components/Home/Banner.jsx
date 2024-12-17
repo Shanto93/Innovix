@@ -10,13 +10,15 @@ const Banner = () => {
       <div className="hero-overlay bg-opacity-60"></div>
       <div className="hero-content text-neutral-content text-center">
         <div className="max-w-md">
-          <h1 className="mb-5 text-5xl font-bold">WELCOME TO INNOVIX</h1>
-          <p className="mb-5">
+          <h1 className="mb-5 text-5xl font-bold text-[#03DAC6]">
+            WELCOME TO INNOVIX
+          </h1>
+          <p className="mb-5 text-[#E6E6E6] ">
             Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
             excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
             a id nisi.
           </p>
-          <button className="btn btn-primary">Get Started</button>
+          <button>Welcome</button>
         </div>
       </div>
     </div>

@@ -68,7 +68,7 @@ const Products = () => {
 
   return (
     <div className="container mx-auto">
-      <h2 className="text-3xl text-center font-semibold">All Products</h2>
+      <h2 className="title text-3xl text-center font-semibold">All Products</h2>
 
       {/* Searching and sorting */}
       <div className="md:flex justify-between items-center">

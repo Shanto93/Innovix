@@ -3,7 +3,7 @@ import SideBar from "../components/Dashboard/SideBar";
 
 const DashboardLayout = () => {
   return (
-    <div className="md:grid grid-cols-12">
+    <div className="md:grid grid-cols-12 bg-[#1E1E2F]">
       <div className="col-span-2">
         <SideBar></SideBar>
       </div>

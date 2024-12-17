@@ -3,7 +3,7 @@ const ProductCard = ({ product }) => {
   const { title, brand, category, description, imageURL, price, stock } =
     product;
   return (
-    <div className="card rounded-md border bg-base-100 w-60 shadow-2xl shadow-pink-500/30">
+    <div className="bg-opacity-15 card rounded-md bg-black  border border-[#00BFFF] w-60 shadow-2xl shadow-sky-500/30 ">
       <div className="relative">
         <div className="">
           <img
@@ -24,23 +24,23 @@ const ProductCard = ({ product }) => {
         </div>
       </div>
       <div className="card-body p-2 card">
-        <h2 className="text-lg font-semibold text-center">{title} </h2>
+        <h2 className="card-title text-lg text-center text-white">{title} </h2>
         <div className="flex items-center w-full px-4">
-          <p className="text-md font-bold">{brand} </p>
-          <p className="text-sm font-semibold text-end">{category} </p>
+          <p className="text-md font-bold text-white ">{brand} </p>
+          <p className="text-sm font-semibold text-end text-white">{category} </p>
         </div>
-        <p className="text-sm text-center">
+        <p className="text-sm text-center text-white">
           {description.length > 50 ? (
             <>
               {description.slice(0, 40)}
-              <span className="text-red-500 cursor-pointer"> Read More...</span>
+              <span className="text-[#FFD700] cursor-pointer"> Read More...</span>
             </>
           ) : (
             description
           )}
         </p>
         <div className="flex justify-center items-center card-actions mb-2">
-          <button className="btn btn-secondary btn-sm">ADD TO WISHLIST</button>
+          <button className="card-btn btn-sm">ADD TO WISHLIST</button>
         </div>
       </div>
     </div>

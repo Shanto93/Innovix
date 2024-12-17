@@ -66,14 +66,15 @@ const AddProduct = () => {
 
   return (
     <div>
-      <h2 className="text-2xl text-center">Add Product</h2>
+      <h2 className="title">Add Product</h2>
+      <p className="subtitle">Add your product here</p>
       <form onSubmit={handleSubmit(onSubmit)} className="card-body">
         <div className="md:flex gap-8 w-full">
           {/* title */}
           <div className="flex-1">
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Title</span>
+                <span className="label-text text-white">Title</span>
               </label>
               <input
                 type="text"
@@ -94,7 +95,7 @@ const AddProduct = () => {
           <div className="flex-1">
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Brand</span>
+                <span className="label-text text-white">Brand</span>
               </label>
               <input
                 type="text"
@@ -118,7 +119,7 @@ const AddProduct = () => {
           <div className="flex-1">
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Price</span>
+                <span className="label-text text-white">Price</span>
               </label>
               <input
                 type="number"
@@ -139,7 +140,7 @@ const AddProduct = () => {
           <div className="flex-1">
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Stock</span>
+                <span className="label-text text-white">Stock</span>
               </label>
               <input
                 type="number"
@@ -161,7 +162,7 @@ const AddProduct = () => {
           <div className="flex-1">
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Category</span>
+                <span className="label-text text-white">Category</span>
               </label>
               <input
                 type="text"
@@ -183,12 +184,12 @@ const AddProduct = () => {
             <div className="form-control w-full">
               <label className="form-control w-full">
                 <div className="label">
-                  <span className="label-text">Image</span>
+                  <span className="label-text text-white">Image</span>
                 </div>
                 <input
                   {...register("imageURL", { required: true })}
                   type="file"
-                  className="file-input file-input-bordered w-full"
+                  className="file-input file-input-bordered file-input-info  w-full"
                 />
               </label>
 
@@ -205,7 +206,7 @@ const AddProduct = () => {
 
         <div className="form-control">
           <label className="label">
-            <span className="label-text">Description</span>
+            <span className="label-text text-white  ">Description</span>
           </label>
           <textarea
             type="text"
@@ -221,9 +222,10 @@ const AddProduct = () => {
         </div>
 
         <div className="form-control mt-6">
+
           <button
             type="submit"
-            className="btn bg-[#f511c3] text-white hover:bg-[#a11883]"
+            className="w-full"
           >
             ADD PRODUCT
           </button>

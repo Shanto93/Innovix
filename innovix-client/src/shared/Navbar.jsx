@@ -13,8 +13,8 @@ const Navbar = () => {
           to="/"
           className={({ isActive }) =>
             isActive
-              ? "text-[#f511c3] font-bold border-b-2 border-[#f511c3] bg-transparent rounded-none hover:bg-transparent"
-              : "text-black font-bold hover:text-[#a11883] hover:bg-transparent"
+              ? "text-[#f511c3] font-bold border-b-2 border-[#00FFFF] bg-transparent rounded-none hover:bg-transparent"
+              : "text-[#00FFFF] font-bold hover:text-[#f511c3] hover:bg-transparent"
           }
         >
           Home
@@ -25,8 +25,8 @@ const Navbar = () => {
           to="/products"
           className={({ isActive }) =>
             isActive
-              ? "text-[#f511c3] font-bold border-b-2 border-[#f511c3] bg-transparent rounded-none hover:bg-transparent"
-              : "text-black font-bold hover:text-[#a11883] hover:bg-transparent"
+              ? "text-[#f511c3] font-bold border-b-2 border-[#00FFFF] bg-transparent rounded-none hover:bg-transparent"
+              : "text-[#00FFFF] font-bold hover:text-[#f511c3] hover:bg-transparent"
           }
         >
           Products
@@ -37,8 +37,8 @@ const Navbar = () => {
           to="/about"
           className={({ isActive }) =>
             isActive
-              ? "text-[#f511c3] font-bold border-b-2 border-[#f511c3] bg-transparent rounded-none hover:bg-transparent"
-              : "text-black font-bold hover:text-[#a11883] hover:bg-transparent"
+              ? "text-[#f511c3] font-bold border-b-2 border-[#00FFFF] bg-transparent rounded-none hover:bg-transparent"
+              : "text-[#00FFFF] font-bold hover:text-[#f511c3] hover:bg-transparent"
           }
         >
           About
@@ -49,8 +49,8 @@ const Navbar = () => {
           to="/contact"
           className={({ isActive }) =>
             isActive
-              ? "text-[#f511c3] font-bold border-b-2 border-[#f511c3] bg-transparent rounded-none hover:bg-transparent"
-              : "text-black font-bold hover:text-[#a11883] hover:bg-transparent"
+              ? "text-[#f511c3] font-bold border-b-2 border-[#00FFFF] bg-transparent rounded-none hover:bg-transparent"
+              : "text-[#00FFFF] font-bold hover:text-[#f511c3] hover:bg-transparent"
           }
         >
           Contact Us
@@ -59,7 +59,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-[#1E1E2F]">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

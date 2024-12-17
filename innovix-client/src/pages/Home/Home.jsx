@@ -9,19 +9,19 @@ const Home = () => {
       <Banner></Banner>
       <div className="max-w-screen-lg mx-auto">
         <div className="my-16">
-          <h2 className="text-3xl font-bold text-wrap text-center mb-10">
+          <h2 className="title text-3xl font-bold text-wrap text-center mb-10 text-[#00BFFF]">
             Featured Products
           </h2>
           <FeaturedProduct></FeaturedProduct>
         </div>
         <div className="my-16">
-          <h2 className="text-3xl font-bold text-wrap text-center mb-10">
+          <h2 className="title text-3xl font-bold text-wrap text-center mb-10 text-[#1E90FF] ">
             Reviews
           </h2>
           <Reviews></Reviews>
         </div>
-        <div className="my-16">
-          <h2 className="text-3xl font-bold text-wrap text-center mb-10">
+        <div className="">
+          <h2 className="title text-3xl font-bold text-wrap text-center mb-10">
             Frequently Asked Questions
           </h2>
           <FAQ></FAQ>

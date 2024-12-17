@@ -1,3 +1,225 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Button style */
+button {
+  background-color: #ff007f;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 0 5px #ff007f;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #00ffff;
+  box-shadow: 0 0 10px #00ffff;
+  transform: scale(1.05);
+}
+
+button:disabled {
+  background-color: #444;
+  color: #aaa;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* input style */
+
+input {
+  background-color: #1a1a1a;
+  color: #00ffff;
+  border: 2px solid #ff007f;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: 0 0 5px #ff007f;
+  transition: all 0.3s ease-in-out;
+}
+
+input:focus {
+  border-color: #00ffff;
+  box-shadow: 0 0 15px #00ffff;
+  background-color: #2a2a2a;
+}
+
+input::placeholder {
+  color: #808080;
+  opacity: 0.8;
+}
+
+input:disabled {
+  background-color: #444;
+  color: #aaa;
+  border-color: #666;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* Label styling */
+
+label {
+  color: #ff007f;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+  text-shadow: 0 0 10px #ff007f;
+  transition: all 0.3s ease-in-out;
+}
+
+label:hover {
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+label:disabled {
+  color: #808080;
+  text-shadow: none;
+  cursor: not-allowed;
+}
+
+/* Textare design */
+textarea {
+  background-color: #1a1a1a;
+  color: #00ffff;
+  border: 2px solid #ff007f;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  outline: none;
+  resize: vertical;
+  box-shadow: 0 0 10px #ff007f;
+  transition: all 0.3s ease-in-out;
+}
+
+textarea:focus {
+  border-color: #00ffff;
+  box-shadow: 0 0 15px #00ffff;
+  background-color: #2a2a2a;
+}
+
+textarea::placeholder {
+  color: #808080;
+  opacity: 0.8;
+}
+
+textarea:disabled {
+  background-color: #444;
+  color: #aaa;
+  border-color: #666;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+
+/* Title Style */
+.title {
+    font-size: 2rem;
+    color: #FF007F;
+    text-align: center; 
+    text-transform: uppercase; 
+    font-weight: 700; 
+    text-shadow: 0 0 10px #FF007F, 0 0 20px #FF007F; /* Neon glow effect */
+    letter-spacing: 2px; 
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .title:hover {
+    color: #00FFFF; 
+    text-shadow: 0 0 15px #00FFFF, 0 0 30px #00FFFF; 
+    transform: scale(1.05); 
+  }
+  
+  
+  .subtitle {
+    font-size: 1.25rem; 
+    color: #00FFFF; 
+    text-align: center; 
+    margin-top: 10px; 
+    font-weight: 400; 
+    text-shadow: 0 0 5px #00FFFF; 
+    transition: all 0.3s ease;
+  }
+  
+  
+  .subtitle:hover {
+    color: #FF007F; 
+    text-shadow: 0 0 10px #FF007F; 
+  }
+
+
+  /* Card Design */
+
+
+.cardd {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .cardd .cardd-btn {
+    background-color: #f511c3; 
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .cardd .cardd-btn:hover {
+    background-color: #00FFFF; 
+    transform: translateY(-3px);
+  }
+  
+  .cardd:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+
+  /* Select style*/
+
+.select {
+    background-color: #1e1e1e; 
+    color: #ffffff; 
+    padding: 10px 15px;
+    border: 2px solid #f511c3;
+    border-radius: 5px;
+    font-size: 1rem;
+    outline: none;
+    width: 100%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .select:hover {
+    border-color: #00FFFF; 
+    background-color: #333333;
+  }
+  
+  .select:focus {
+    border-color: #00FFFF; 
+    background-color: #333333; 
+    box-shadow: 0 0 5px 2px rgba(0, 255, 255, 0.5); 
+  }
+  
+  .select option {
+    background-color: #1e1e1e; 
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    font-size: 1rem;
+  }
+  
+  
+  .select option:hover {
+    background-color: #333333; 
+  }
+  
