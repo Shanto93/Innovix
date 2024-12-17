@@ -2,17 +2,24 @@ const express = require("express");
 const app = express();
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 require("dotenv").config();
 const port = process.env.PORT || 3000;
+const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"];
 
-//middleware
 app.use(
   cors({
-    origin: "http://localhost:5174",
-    optionsSuccessStatus: 200,
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
   })
 );
+
 app.use(express.json());
 
 // Token verification
@@ -107,26 +114,52 @@ const dbConnect = async () => {
 
   //Products related API
 
-  app.get("/all-product", async (req, res) => {
-    const { title, sort, category, brand } = req.query;
-    query = {};
-    if (title) {
-      query.title = { $regex: title, $options: "i" };
+  app.get("/all-products", async (req, res) => {
+    try {
+      const { title, sort, category, brand, page = 1, limit = 9 } = req.query;
+
+      const query = {};
+      if (title) {
+        query.title = { $regex: title, $options: "i" };
+      }
+      if (category) {
+        query.category = { $regex: category, $options: "i" };
+      }
+      if (brand) {
+        query.brand = { $regex: brand, $options: "i" };
+      }
+      const sortOptions = sort === "asc" ? { price: 1 } : { price: -1 };
+
+      const pageNumber = Number(page);
+      const limitNumber = Number(limit);
+
+      const products = await productCollection
+        .find(query)
+        .skip((pageNumber - 1) * limitNumber)
+        .limit(limitNumber)
+        .sort(sortOptions)
+        .toArray();
+
+      const totalProduct = await productCollection.countDocuments(query);
+      const productInfo = await productCollection
+        .find(
+          {},
+          {
+            projection: { brand: 1, category: 1 },
+          }
+        )
+        .toArray();
+
+      const brands = [...new Set(productInfo.map((product) => product.brand))];
+      const categories = [
+        ...new Set(products.map((product) => product.category)),
+      ];
+
+      res.json({ products, brands, categories, totalProduct });
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      res.status(500).json({ message: "Failed to fetch products" });
     }
-    if (sort) {
-      const sortoptions = sort === "asc" ? 1 : -1;
-    }
-    if (category) {
-      query.category = { $regex: category, $options: "i" };
-    }
-    if (brand) {
-      query.brand = { $regex: brand, $options: "i" };
-    }
-    const product = await productCollection
-      .find(query)
-      .sort({ price: sortoptions })
-      .toArray();
-    res.json(product);
   });
 
   app.post("/add-product", verifyToken, verifySeller, async (req, res) => {
@@ -135,6 +168,29 @@ const dbConnect = async () => {
     res.send(result);
   });
 };
+
+app.patch("/wishlist/add", async (req, res) => {
+  const { productId, userEmail } = req.body;
+  const result = await userCollection.updateOne(
+    { email: userEmail },
+    { $addToSet: { wishlist: new ObjectId(String(productId)) } }
+  );
+  res.send(result);
+});
+
+app.get("/wishlist/:userId", verifyToken, async (req, res) => {
+  const userId = req.params.userId;
+  const user = await userCollection.findOne({
+    id: new ObjectId(String(userId)),
+  });
+  if (!user) {
+    return res.send({ message: "User not found" });
+  }
+  const wishlist = await productCollection
+    .find({ _id: { $in: user.wishlist } })
+    .toArray();
+  res.send(wishlist);
+});
 
 dbConnect();
 
