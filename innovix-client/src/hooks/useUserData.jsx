@@ -32,10 +32,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "./useAuth";
-import useAxiosPublic from "./useAxiosPublic";
+// import useAxiosPublic from "./useAxiosPublic";
+import axios from "axios";
 
 const useUserData = () => {
-  const axiosPublic = useAxiosPublic();
+  // const axiosPublic = useAxiosPublic();
   const { user, loading } = useAuth();
 
   const {
@@ -47,7 +48,7 @@ const useUserData = () => {
     queryKey: ["userData", user?.email], 
     queryFn: async () => {
       if (!user?.email) throw new Error("No user email available");
-      const res = await axiosPublic.get(`/users/${user.email}`);
+      const res = await axios.get(`http://localhost:3000/users/${user.email}`);
       return res.data;
     },
     enabled: !!user?.email && !loading, 

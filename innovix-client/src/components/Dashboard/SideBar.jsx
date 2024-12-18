@@ -34,7 +34,7 @@ const SideBar = () => {
   ];
 
   return (
-    <div className=" min-h-screen flex justify-center mr-2 border-r-2">
+    <div className=" min-h-screen flex justify-center mr-2 border-r-2 h-fullF">
       <ul className="uppercase">
         <Link to="/">
           <img className="w-32 mt-8" src={logo} alt="Logo" />

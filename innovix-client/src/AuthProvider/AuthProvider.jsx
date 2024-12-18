@@ -7,6 +7,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
+  updateProfile,
 } from "firebase/auth";
 import { app } from "./../firebase-config/firebase";
 import Loading from "../components/Loading/Loading";
@@ -61,6 +62,13 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const updateUser = async (name, photo) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+    });
+  };
+
   const logoutUser = async () => {
     try {
       await signOut(auth);
@@ -99,6 +107,7 @@ const AuthProvider = ({ children }) => {
     googleLogin,
     createUser,
     loginUser,
+    updateUser,
     logoutUser,
   };
 

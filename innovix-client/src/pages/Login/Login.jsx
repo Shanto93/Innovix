@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -7,6 +7,9 @@ import GoogleLogin from "../../components/Authentication/GoogleLogin";
 const Login = () => {
   const { loginUser } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
 
   const {
     register,
@@ -15,7 +18,7 @@ const Login = () => {
   } = useForm();
   const onSubmit = (data) => {
     loginUser(data.email, data.password);
-    navigate("/");
+    navigate(from, { replace: true });
     toast.success("User sucessfully logged in");
   };
   return (
