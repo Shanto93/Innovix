@@ -4,15 +4,17 @@ import Footer from "../shared/Footer";
 
 const MainLayout = () => {
   return (
-    <div className="">
-      <div className="md:px-28 mx-auto bg-[#1E1E2F]">
-        <Navbar></Navbar>
-      </div>
-      <div className="min-h-screen md:px-28 mx-auto bg-[#1E1E2F]">
-        <Outlet></Outlet>
-      </div>
-      <div className="md:px-28 mx-auto bg-[#1E1E2F]">
-        <Footer></Footer>
+    <div className="bg-[#1E1E2F]">
+      <div className="md:max-w-screen-lg mx-auto">
+        <div className="mx-auto ">
+          <Navbar></Navbar>
+        </div>
+        <div className="min-h-screen mx-auto">
+          <Outlet></Outlet>
+        </div>
+        <div className="">
+          <Footer></Footer>
+        </div>
       </div>
     </div>
   );

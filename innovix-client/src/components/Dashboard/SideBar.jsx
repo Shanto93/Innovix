@@ -5,6 +5,7 @@ import useUserData from "./../../hooks/useUserData";
 import { MdOutlineInventory2 } from "react-icons/md";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import logo from "../../assets/innovix_logo.gif";
+import { BsCart3 } from "react-icons/bs";
 
 const SideBar = () => {
   const { userData } = useUserData();
@@ -23,6 +24,14 @@ const SideBar = () => {
       icon: <IoIosAddCircleOutline />,
     },
   ];
+  const buyerRoutes = [
+    {
+      id: 1,
+      path: "/dashboard/wishlist",
+      title: "My Wishlist",
+      icon: <BsCart3 />,
+    },
+  ];
 
   return (
     <div className=" min-h-screen flex justify-center mr-2 border-r-2">
@@ -39,6 +48,16 @@ const SideBar = () => {
 
         {userData?.role === "seller" &&
           sellerRoutes.map((route) => (
+            <NavLink key={route.id} to={route.path}>
+              <li className="px-3 py-2 mt-2 border rounded-md flex gap-2 w-full items-center border-white text-[#E0E0E0] hover:bg-[#00FFFF] hover:scale-105 hover:shadow-md hover:shadow-[#00FFFF] hover:text-white hover:border-none">
+                {route.icon}
+                <p>{route.title}</p>
+              </li>
+            </NavLink>
+          ))}
+
+        {userData?.role === "buyer" &&
+          buyerRoutes.map((route) => (
             <NavLink key={route.id} to={route.path}>
               <li className="px-3 py-2 mt-2 border rounded-md flex gap-2 w-full items-center border-white text-[#E0E0E0] hover:bg-[#00FFFF] hover:scale-105 hover:shadow-md hover:shadow-[#00FFFF] hover:text-white hover:border-none">
                 {route.icon}

@@ -126,7 +126,7 @@ const Products = () => {
           <FaRegArrowAltCircleLeft className="text-3xl text-pink-500" />
         </button>
 
-        <p className="text-xl">
+        <p className="text-xl text-[#FFD700]">
           Page: {page} of {totalPage}
         </p>
 
@@ -146,7 +146,7 @@ const Products = () => {
           <select
             onChange={(e) => setLimit(e.target.value)}
             className="p-2 ml-2"
-          ><option disabled selected>5</option>
+          ><option disabled defaultValue={5}>5</option>
             <option value={1}>1</option>
             <option value={2}>2</option>
             <option value={3}>3</option>
