@@ -21,13 +21,13 @@ const useWishList = () => {
           authorization: `Bearer ${token}`,
         },
       });
-      console.log("Wishlist data:", res.data);
+      // console.log("Wishlist data:", res.data);
       return res.data;
     },
     enabled: Boolean(userData?._id),
   });
 
-  return [wishlist, isLoading, refetch];
+  return {wishlist, isLoading, refetch};
 };
 
 export default useWishList;

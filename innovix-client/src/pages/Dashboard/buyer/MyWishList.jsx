@@ -3,11 +3,11 @@ import Loading from "../../../components/Loading/Loading";
 import useWishList from "../../../hooks/useWishList";
 
 const MyWishList = () => {
-  const [wishlist, isLoading] = useWishList();
+  const { wishlist, isLoading } = useWishList();
 
   return (
     <>
-    <h2 className="title text-center mb-8">My Wishlist</h2>
+      <h2 className="title text-center mb-8">My Wishlist</h2>
       {isLoading ? (
         <Loading></Loading>
       ) : (
