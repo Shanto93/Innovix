@@ -22,7 +22,7 @@ const Register = () => {
 
   const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
-  console.log(image_hosting_api, image_hosting_key);
+  // console.log(image_hosting_api, image_hosting_key);
 
   const onSubmit = async (data) => {
     const imageFile = { image: data.photoURL[0] };
@@ -31,7 +31,7 @@ const Register = () => {
         "content-type": "multipart/form-data",
       },
     });
-    console.log(res);
+    // console.log(res);
 
     const name = data.name;
     const email = data.email;
@@ -40,8 +40,9 @@ const Register = () => {
     const status = data.role === "buyer" ? "approved" : "pending";
     const wishlist = [];
     const userData = { name, email, photoURL, role, status, wishlist };
-    console.log(userData);
+    // console.log(userData);
 
+    // eslint-disable-next-line no-unused-vars
     createUser(email, data.password).then((result) => {
       updateUser(name, photoURL)
         .then(() => {
@@ -56,7 +57,7 @@ const Register = () => {
           });
         })
         .catch((error) => console.log(error));
-      console.log(result);
+      // console.log(result);
     });
   };
 
@@ -180,7 +181,7 @@ const Register = () => {
                 {...register("role", { required: true })}
               >
                 <option defaultValue="buyer">buyer</option>
-                <option value="seller">seller</option>
+                <option value="pending">seller</option>
               </select>
             </div>
             <div className="form-control mt-6">
@@ -190,7 +191,7 @@ const Register = () => {
             </div>
             <GoogleLogin></GoogleLogin>
             <h2 className="my-2 text-white">
-              Already have account?{" "}
+              Already have account?
               <Link to="/login">
                 <span className="text-[#FFD700] text-sm">Login </span>
               </Link>

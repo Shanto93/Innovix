@@ -18,6 +18,7 @@ import BuyerRoute from "./Private/BuyerRoute";
 import MyWishList from "../pages/Dashboard/buyer/MyWishList";
 import ManageUsers from "../pages/Dashboard/admin/ManageUsers";
 import AdminRoutes from "./Private/AdminRoutes";
+import Pending from "../pages/Dashboard/pending/Pending";
 
 export const router = createBrowserRouter([
   {
@@ -77,6 +78,11 @@ export const router = createBrowserRouter([
             <ManageUsers></ManageUsers>
           </AdminRoutes>
         ),
+      },
+      //Pending Routes
+      {
+        path: "/dashboard/pending",
+        element: <Pending></Pending>,
       },
 
       //Buyer Routes

@@ -9,6 +9,7 @@ import logo from "../../assets/innovix_logo.gif";
 import { BsCart3 } from "react-icons/bs";
 import { CiEdit } from "react-icons/ci";
 import useAuth from "./../../hooks/useAuth";
+import { MdOutlinePendingActions } from "react-icons/md";
 
 const SideBar = () => {
   const { userData } = useUserData();
@@ -50,9 +51,17 @@ const SideBar = () => {
       icon: <CiEdit />,
     },
   ];
+  const pendingRoutes = [
+    {
+      id: 1,
+      path: "/dashboard/pending",
+      title: "Status",
+      icon: <MdOutlinePendingActions />,
+    },
+  ];
 
   return (
-    <div className=" min-h-screen flex justify-center mr-2 border-r-2 h-fullF">
+    <div className=" min-h-screen flex justify-center mr-2 border-r-2 h-full">
       <ul className="uppercase">
         <Link to="/">
           <img className="w-32 mt-8" src={logo} alt="Logo" />
@@ -92,6 +101,15 @@ const SideBar = () => {
               </li>
             </NavLink>
           ))}
+        {userData?.role === "pending" &&
+          pendingRoutes.map((route) => (
+            <NavLink key={route.id} to={route.path}>
+              <li className="px-3 py-2 mt-2 border rounded-md flex gap-2 w-full items-center border-white text-[#E0E0E0] hover:bg-[#00FFFF] hover:scale-105 hover:shadow-md hover:shadow-[#00FFFF] hover:text-white hover:border-none">
+                {route.icon}
+                <p>{route.title}</p>
+              </li>
+            </NavLink>
+          ))}
 
         <div className="divider"></div>
         <NavLink to="/">
@@ -103,7 +121,7 @@ const SideBar = () => {
         <li>
           <button
             onClick={handleLogout}
-            className="bg-[#fc0505] hover:shadow-red-500 hover:shadow-md btn btn-sm mt-2 w-full border-none uppercase text-white hover:bg-[#ff3b3b]"
+            className="bg-[#fc0505] hover:shadow-red-500/50 hover:shadow-md btn btn-sm mt-2 w-full border-none uppercase text-white hover:bg-[#ff3b3b]"
           >
             Logout
           </button>

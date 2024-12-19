@@ -9,6 +9,19 @@ const ManageUsers = () => {
 
   const token = localStorage.getItem("access-token");
 
+  const handleAcceptRequest = (uId) => {
+    axiosPublic.patch(`/users/makeseller/${uId}`).then((res) => {
+      refetch();
+      console.log(res);
+    });
+  };
+  const handleRejectRequest = (uId) => {
+    axiosPublic.patch(`/users/makebuyer/${uId}`).then((res) => {
+      refetch();
+      console.log(res);
+    });
+  };
+
   const handleDeleteUser = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -51,7 +64,7 @@ const ManageUsers = () => {
               <th className="text-white">Photo</th>
               <th className="text-white">Name</th>
               <th className="text-white">Role</th>
-              <th className="text-white">Status</th>
+              <th className="text-white text-center">Status</th>
               <th className="text-white">Delete</th>
               <th className="text-white">Edit</th>
             </tr>
@@ -83,17 +96,46 @@ const ManageUsers = () => {
                   </td>
                   <td className="text-white">{user.name || "Unknown"}</td>
                   <td className="text-white">{user.role || "User"}</td>
-                  <td className="text-white">{user.status || "Pending"}</td>
+                  <td className="text-white">
+                    {user.status === "pending" ? (
+                      <div className="flex justify-center  items-center gap-3">
+                        <button
+                          onClick={() => handleAcceptRequest(user._id)}
+                          className="btn-sm py-0 bg-green-500"
+                        >
+                          Accept
+                        </button>
+                        <button
+                          onClick={() => handleRejectRequest(user._id)}
+                          className="btn-sm py-0 bg-red-600"
+                        >
+                          Reject
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="flex justify-center">
+                        <button
+                          className={`${
+                            user.status === "approved"
+                              ? "btn-sm py-0 bg-green-600 border-none shadow-2xl shadow-green-600/50"
+                              : "btn-sm py-0 bg-red-600 border-none shadow-2xl"
+                          }`}
+                        >
+                          {user.status}
+                        </button>
+                      </div>
+                    )}
+                  </td>
                   <td className="text-white">
                     <button
                       onClick={() => handleDeleteUser(user._id)}
-                      className="btn-sm py-0 bg-red-600 border-none shadow-red-500 shadow-2xl"
+                      className="btn-sm py-0 bg-red-600 border-none  shadow-2xl"
                     >
                       Delete
                     </button>
                   </td>
                   <td className="text-white">
-                    <button className="btn-sm py-0 bg-[#FFD700] border-none shadow-red-500 shadow-2xl">
+                    <button className="btn-sm py-0 bg-[#FFD700] border-none shadow-2xl">
                       Edit
                     </button>
                   </td>

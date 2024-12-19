@@ -79,7 +79,7 @@ const ProductCard = ({ product }) => {
           <button
             onClick={() => handleWishlist()}
             className="card-btn btn-sm py-0"
-            disabled={userData.role === "seller"}
+            disabled={userData.role === "seller" | userData.role === "pending"}
           >
             ADD TO WISHLIST
           </button>
