@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import registerImage from "./../../assets/register.gif";
 
 const Register = () => {
   const { createUser, updateUser } = useContext(AuthContext);
@@ -19,15 +20,27 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+  const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+  console.log(image_hosting_api, image_hosting_key);
+
+  const onSubmit = async (data) => {
+    const imageFile = { image: data.photoURL[0] };
+    const res = await axiosPublic.post(image_hosting_api, imageFile, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
+    console.log(res);
+
     const name = data.name;
     const email = data.email;
-    const photoURL = data.photoURL;
+    const photoURL = res.data.data.display_url;
     const role = data.role;
     const status = data.role === "buyer" ? "approved" : "pending";
     const wishlist = [];
     const userData = { name, email, photoURL, role, status, wishlist };
-    // console.log(userData);
+    console.log(userData);
 
     createUser(email, data.password).then((result) => {
       updateUser(name, photoURL)
@@ -45,84 +58,20 @@ const Register = () => {
         .catch((error) => console.log(error));
       console.log(result);
     });
-    // const userRegistrationPromise = new Promise((resolve, reject) => {
-    //   createUser(data.email, data.password)
-    //     .then(() => {
-    //       axiosPublic
-    //         .post("/users", userData)
-    //         .then((res) => {
-    //           if (res.data?.insertedId) {
-    //             updateUser(name, photoURL)
-    //               .then(() => {
-    //                 console.log("User Profile Info Updated");
-    //               })
-    //               .catch((error) => console.log(error));
-    //             resolve("User registered successfully");
-    //           } else {
-    //             reject(new Error("Failed to register user"));
-    //           }
-    //         })
-    //         .catch((err) => {
-    //           reject(
-    //             new Error(
-    //               err.response?.data?.message ||
-    //                 "Server error while saving user data"
-    //             )
-    //           );
-    //         });
-    //     })
-    //     .catch((err) => {
-    //       reject(
-    //         new Error(err.message || "Server error while registering user")
-    //       );
-    //     });
-    // });
-
-    // toast.promise(
-    //   userRegistrationPromise,
-    //   {
-    //     loading: "Registering user...",
-    //     success: (message) => {
-    //       reset();
-    //       return message;
-    //     },
-    //     error: (err) => {
-    //       reset();
-    //       return err.message;
-    //     }, // Display the actual error message
-    //   },
-    //   {
-    //     loading: {
-    //       className: "bg-blue-500 text-white",
-    //     },
-    //     success: {
-    //       className: "bg-green-500 text-white",
-    //     },
-    //     error: {
-    //       className: "bg-red-500 text-white",
-    //     },
-    //   }
-    // );
-
-    // userRegistrationPromise.then(() => navigate("/"));
   };
 
   return (
-    <div className="hero bg-base-200 min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold">Register now!</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p>
+    <div className="hero bg-[#1E1E2F] min-h-screen w-full">
+      <div className="hero-content md:flex gap-16">
+        <div className="text-center lg:text-left flex-1">
+          {/* <h1 className=" subtitle text-5xl font-bold text-white">Register now!</h1> */}
+          <img src={registerImage} alt="Animated Register image" />
         </div>
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+        <div className="card bg-[#1E1E2F] w-full  flex-1">
+          <form onSubmit={handleSubmit(onSubmit)} className="card-body w-full">
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Name</span>
+                <span className="label-text text-white">Name</span>
               </label>
               <input
                 type="text"
@@ -138,7 +87,22 @@ const Register = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Photo URL</span>
+                <span className="label-text text-white">Upload Photo</span>
+              </label>
+              <input
+                type="file"
+                {...register("photoURL", { required: true })}
+                className="file-input file-input-bordered w-full"
+              />
+              {errors.photoURL && (
+                <p className="text-sm text-red-600 font-light">
+                  Photo URL is required.
+                </p>
+              )}
+            </div>
+            {/* <div className="form-control">
+              <label className="label">
+                <span className="label-text text-white">Photo URL</span>
               </label>
               <input
                 type="text"
@@ -151,10 +115,10 @@ const Register = () => {
                   Photo URL is required.
                 </p>
               )}
-            </div>
+            </div> */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Email</span>
+                <span className="label-text text-white">Email</span>
               </label>
               <input
                 type="email"
@@ -170,7 +134,7 @@ const Register = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Password</span>
+                <span className="label-text text-white">Password</span>
               </label>
               <input
                 type="password"
@@ -201,7 +165,7 @@ const Register = () => {
 
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Confirm Password</span>
+                <span className="label-text text-white">Confirm Password</span>
               </label>
               <input
                 type="password"
@@ -224,27 +188,26 @@ const Register = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Role</span>
+                <span className="label-text text-white">Role</span>
               </label>
               <select
-                className="select select-bordered w-full max-w-xs"
+                className="select select-bordered w-full"
                 {...register("role", { required: true })}
               >
                 <option defaultValue="buyer">buyer</option>
                 <option value="seller">seller</option>
-                <option value="admin">admin</option>
               </select>
             </div>
             <div className="form-control mt-6">
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="bg-[#FFD700]">
                 Register
               </button>
             </div>
             <GoogleLogin></GoogleLogin>
-            <h2 className="my-2">
+            <h2 className="my-2 text-white">
               Already have account?{" "}
               <Link to="/login">
-                <span className="text-blue-500 text-sm">Login</span>
+                <span className="text-[#FFD700] text-sm">Login </span>
               </Link>
               now
             </h2>

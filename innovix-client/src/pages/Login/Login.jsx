@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import GoogleLogin from "../../components/Authentication/GoogleLogin";
+import loginImage from "./../../assets/login.gif";
 
 const Login = () => {
   const { loginUser } = useAuth();
@@ -17,26 +18,22 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    loginUser(data.email, data.password);
-    navigate(from, { replace: true });
-    toast.success("User sucessfully logged in");
+    loginUser(data.email, data.password).then((res) => {
+      navigate(from, { replace: true });
+      toast.success(`${res.displayName} successfully logged in`);
+    });
   };
   return (
-    <div className="hero bg-base-200 min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold">Login now!</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p>
+    <div className="hero bg-[#1E1E2F] min-h-screen">
+      <div className="hero-content md:flex gap-16">
+        <div className="text-center lg:text-left flex-1">
+          <img src={loginImage} alt="Login Animated Picture" />
         </div>
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+        <div className="card bg-[#1E1E2F] w-full  flex-1">
           <form onSubmit={handleSubmit(onSubmit)} className="card-body">
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Email</span>
+                <span className="label-text text-white">Email</span>
               </label>
               <input
                 type="email"
@@ -52,7 +49,7 @@ const Login = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Password</span>
+                <span className="label-text text-white">Password</span>
               </label>
               <input
                 type="password"
@@ -81,15 +78,15 @@ const Login = () => {
               )}
             </div>
             <div className="form-control mt-6">
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="bg-[#FFD700]">
                 Login
               </button>
             </div>
             <GoogleLogin></GoogleLogin>
-            <h2 className="my-2">
+            <h2 className="my-2 text-white">
               New here?
               <Link to="/register">
-                <span className="text-blue-500 text-sm">Register</span>
+                <span className="text-[#FFD700] text-sm"> Register </span>
               </Link>
               now
             </h2>

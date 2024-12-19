@@ -140,7 +140,7 @@ textarea:disabled {
   
   
   .subtitle {
-    font-size: 1.25rem; 
+    /* font-size: 1.25rem;  */
     color: #00FFFF; 
     text-align: center; 
     margin-top: 10px; 

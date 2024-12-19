@@ -29,12 +29,13 @@ const GoogleLogin = () => {
   };
   return (
     <div>
-      <div className="divider"></div>
+      <div className="divider divider-neutral "></div>
       <button
         onClick={handleGoogleLogin}
-        className="btn btn-outline btn-secondary w-full"
+        className="w-full flex items-center justify-center"
       >
-        <FaGoogle className="text-2xl" /> GOOGLE
+        <FaGoogle className="text-2xl" />
+        <p> GOOGLE</p>
       </button>
     </div>
   );
