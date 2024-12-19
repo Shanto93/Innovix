@@ -5,21 +5,16 @@ const cors = require("cors");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 require("dotenv").config();
 const port = process.env.PORT || 3000;
-const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"];
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: "http://localhost:5173", // Replace with your frontend's origin
+//     methods: ["GET", "POST", "PUT", "DELETE"], // Allow specific HTTP methods
+//     credentials: true, // Allow cookies if needed
+//   })
+// );
 
+app.use(cors());
 app.use(express.json());
 
 // Token verification
@@ -88,13 +83,23 @@ const dbConnect = async () => {
         const user = await userCollection.findOne(query);
 
         if (user) {
-          res.status(200).send(user);
+          res.send(user);
         } else {
-          res.status(404).send({ message: "User not found" });
+          res.send({ message: "User not found" });
         }
       } catch (error) {
         console.error("Error fetching user:", error);
         res.status(500).send({ message: "Internal server error" });
+      }
+    });
+
+    app.get("/users", async (req, res) => {
+      try {
+        const result = await userCollection.find().toArray();
+        res.status(200).json(result);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        res.status(500).json({ message: "Failed to fetch users" });
       }
     });
 
@@ -111,6 +116,27 @@ const dbConnect = async () => {
   } catch (error) {
     console.log(error.name, error.message);
   }
+
+  app.delete("/users/:userId", verifyToken, async (req, res) => {
+    const userId = req.params.userId;
+    const query = { _id: new ObjectId(userId) };
+    const result = await userCollection.deleteOne(query);
+    res.send(result);
+  });
+
+  //Admin related API
+
+  app.patch("/users/admin/:userId", async (req, res) => {
+    const userId = req.params.userId;
+    const query = { _id: new ObjectId(userId) };
+    const updatedDoc = {
+      $set: {
+        role: "admin",
+      },
+    };
+    const result = await userCollection.updateOne(query, updatedDoc);
+    res.send(result);
+  });
 
   //Products related API
 
@@ -178,18 +204,47 @@ app.patch("/wishlist/add", async (req, res) => {
   res.send(result);
 });
 
+app.patch("/wishlist/remove", verifyToken, async (req, res) => {
+  const { productId, userEmail } = req.body;
+  const result = await userCollection.updateOne(
+    { email: userEmail },
+    { $pull: { wishlist: new ObjectId(String(productId)) } }
+  );
+  res.send(result);
+});
+
+// app.get("/wishlist/:userId", verifyToken, async (req, res) => {
+//   const userId = req.params.userId;
+//   const user = await userCollection.findOne({
+//     id: new ObjectId(String(userId)),
+//   });
+//   if (!user) {
+//     return res.send({ message: "User not found" });
+//   }
+//   const wishlist = await productCollection
+//     .find({ _id: { $in: user.wishlist } })
+//     .toArray();
+//   res.send(wishlist);
+// });
+
 app.get("/wishlist/:userId", verifyToken, async (req, res) => {
-  const userId = req.params.userId;
-  const user = await userCollection.findOne({
-    id: new ObjectId(String(userId)),
-  });
-  if (!user) {
-    return res.send({ message: "User not found" });
+  try {
+    const userId = req.params.userId;
+    const user = await userCollection.findOne({
+      _id: new ObjectId(userId),
+    });
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+    const wishlistItems = await productCollection
+      .find({ _id: { $in: user.wishlist.map((id) => new ObjectId(id)) } })
+      .toArray();
+
+    res.send(wishlistItems);
+  } catch (error) {
+    console.error("Error fetching wishlist:", error);
+    res.status(500).send({ message: "Internal server error" });
   }
-  const wishlist = await productCollection
-    .find({ _id: { $in: user.wishlist } })
-    .toArray();
-  res.send(wishlist);
 });
 
 dbConnect();
