@@ -89,7 +89,7 @@ const WishListCard = ({ product }) => {
         <div className="flex justify-center items-center card-actions mb-2">
           <button
             onClick={() => handleRemoveFromWishList()}
-            className="card-btn btn-sm bg-red-500"
+            className="card-btn btn-sm bg-red-500 py-0"
           >
             REMOVE FROM WISHLIST
           </button>

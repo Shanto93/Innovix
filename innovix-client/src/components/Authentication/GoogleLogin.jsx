@@ -10,7 +10,7 @@ const GoogleLogin = () => {
   const navigate = useNavigate();
   const handleGoogleLogin = () => {
     googleLogin().then((res) => {
-      console.log(res);
+      // console.log(res);
       const userData = {
         name: res.displayName,
         email: res.email,
@@ -19,12 +19,13 @@ const GoogleLogin = () => {
         wishlist: [],
         status: "approved",
       };
+      // eslint-disable-next-line no-unused-vars
       axiosPublic.post("/users", userData).then((res) => {
-        console.log(res.data);
+        // console.log(res);
       });
 
       navigate("/");
-      toast.success("User sucessfully logged in");
+      toast.success(`${res.displayName} sucessfully logged in`);
     });
   };
   return (

@@ -33,16 +33,8 @@ const ProductCard = ({ product }) => {
     },
   });
 
-  // const res = await axiosPublic.patch("/wishlist/add", {
-  //   productId: _id,
-  //   userEmail: userData.userData.email,
-  // });
-  // if (res.data.modifiedCount > 0) {
-  //   toast.success(`${title} is added to wishlist`);
-  // }
-
   return (
-    <div className="bg-opacity-15 card rounded-md bg-black  border border-[#00BFFF] w-60 shadow-2xl shadow-sky-500/30 ">
+    <div className="bg-opacity-15 hover:scale-105  hover:skew-x-3 card rounded-md bg-black  border border-[#00BFFF] w-60 shadow-2xl shadow-sky-500/30 ">
       <div className="relative">
         <div className="">
           <img
@@ -83,7 +75,7 @@ const ProductCard = ({ product }) => {
           )}
         </p>
         <div className="flex justify-center items-center card-actions mb-2">
-          <button onClick={() => handleWishlist()} className="card-btn btn-sm">
+          <button onClick={() => handleWishlist()} className="card-btn btn-sm py-0">
             ADD TO WISHLIST
           </button>
         </div>

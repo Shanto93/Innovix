@@ -12,7 +12,7 @@ const FilterBar = ({
   uniqueCategorys,
 }) => {
   return (
-    <div className="border mt-5 bg-opacity-10 bg-[#f92789] p-4 w-full shadow-pink-500/30 shadow-2xl">
+    <div className="border border-[#00BFFF] rounded-md mt-5 bg-opacity-10 bg-[#00ffff] p-4 w-full shadow-2xl shadow-sky-500/30">
       <div className="flex items-center gap-2">
         <MdOutlineFilterAlt className="subtitle text-xl" />
         <h2 className="subtitle text-lg font-semibold">Filter</h2>
@@ -24,7 +24,7 @@ const FilterBar = ({
           <select
             value={brand} // Controlled component for brand
             onChange={(e) => setBrand(e.target.value)}
-            className="w-full max-w-md border p-[11px] border-black rounded-md"
+            className="select w-full max-w-md border p-[11px] border-black rounded-md"
           >
             <option defaultValue="" value="">
               Brand
@@ -42,7 +42,7 @@ const FilterBar = ({
           <select
             value={category} // Controlled component for category
             onChange={(e) => setCategory(e.target.value)}
-            className="w-full max-w-md border p-[11px] border-black rounded-md"
+            className="select w-full max-w-md border p-[11px] border-black rounded-md"
           >
             <option defaultValue="" value="">
               Category
@@ -60,7 +60,7 @@ const FilterBar = ({
         <button
           onClick={handleReset}
           type="button"
-          className="btn border w-full flex items-center justify-center gap-2"
+          className=" w-full flex items-center justify-center gap-2"
         >
           <p>Reset</p>
           <RiResetRightLine />

@@ -99,10 +99,10 @@ const Navbar = () => {
         <div className="navbar-end">
           <div className="flex gap-2 items-center">
             <Link to="/login">
-              <button className="btn btn-sm bg-black text-white">Login</button>
+              <button className=" btn-sm px-3 py-0 bg-black text-white">Login</button>
             </Link>
             <Link to="/register">
-              <button className="btn btn-sm bg-black text-white">
+              <button className="btn-sm px-3 py-0 bg-black text-white">
                 Register
               </button>
             </Link>
