@@ -9,7 +9,8 @@ const ProductCard = ({ product }) => {
     product;
 
   const axiosPublic = useAxiosPublic();
-  const {userData, refetch} = useUserData();
+  const { userData, refetch } = useUserData();
+  // console.log(userData.role);
 
   const { mutate: handleWishlist } = useMutation({
     mutationFn: async () => {
@@ -75,7 +76,11 @@ const ProductCard = ({ product }) => {
           )}
         </p>
         <div className="flex justify-center items-center card-actions mb-2">
-          <button onClick={() => handleWishlist()} className="card-btn btn-sm py-0">
+          <button
+            onClick={() => handleWishlist()}
+            className="card-btn btn-sm py-0"
+            disabled={userData.role === "seller"}
+          >
             ADD TO WISHLIST
           </button>
         </div>

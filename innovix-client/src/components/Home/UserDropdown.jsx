@@ -5,11 +5,10 @@ import useUserData from "../../hooks/useUserData";
 const UserDropdown = () => {
   const { logoutUser, user } = useAuth();
   const navigate = useNavigate();
-  const userdata = useUserData();
-  const totalWishlist = userdata?.userData?.wishlist?.length;
-  // console.log(user.photoURL);
-
-  // console.log(userdata?.userData?.photoURL);
+  const { userData } = useUserData();
+  const totalWishlist = userData?.wishlist?.length;
+  // console.log(totalWishlist);
+  // console.log(userData.role);
 
   const handleLogout = () => {
     logoutUser();
@@ -23,7 +22,9 @@ const UserDropdown = () => {
         className="btn m-1 bg-transparent border-none hover:bg-transparent"
       >
         <div className="flex">
-          <div className="badge badge-secondary">+{totalWishlist} </div>
+          {userData?.role !== "seller" && (
+            <div className="badge badge-secondary">+{totalWishlist} </div>
+          )}
           <div className="avatar">
             <div className="ring-primary ring-offset-base-100 w-12 rounded-full ring ring-offset-2">
               <img src={user.photoURL} />
@@ -40,7 +41,7 @@ const UserDropdown = () => {
         </li>
         <li>
           <button
-            className="bg-[#fc0505] text-white hover:bg-[#ff3b3b]"
+            className="bg-[#fc0505] shadow-2xl shadow-red-500/50 text-white hover:bg-[#ff3b3b]"
             onClick={handleLogout}
           >
             Logout

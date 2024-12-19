@@ -16,6 +16,8 @@ import AddProduct from "../pages/Dashboard/seller/AddProduct";
 import SellerRoutes from "./Private/SellerRoutes";
 import BuyerRoute from "./Private/BuyerRoute";
 import MyWishList from "../pages/Dashboard/buyer/MyWishList";
+import ManageUsers from "../pages/Dashboard/admin/ManageUsers";
+import AdminRoutes from "./Private/AdminRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -29,7 +31,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/products",
-        element: <PrivateRoute><Products></Products> </PrivateRoute> ,
+        element: (
+          <PrivateRoute>
+            <Products></Products>{" "}
+          </PrivateRoute>
+        ),
       },
       {
         path: "/about",
@@ -61,6 +67,16 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/overview",
         element: <Overview></Overview>,
+      },
+
+      //admin routes
+      {
+        path: "/dashboard/manageUsers",
+        element: (
+          <AdminRoutes>
+            <ManageUsers></ManageUsers>
+          </AdminRoutes>
+        ),
       },
 
       //Buyer Routes
