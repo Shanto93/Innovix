@@ -224,6 +224,35 @@ const dbConnect = async () => {
   });
 };
 
+app.delete("/delete-produce/:uId", async (req, res) => {
+  const uId = req.params.uId;
+  const query = { _id: new ObjectId(uId) };
+  const result = await productCollection.deleteOne(query);
+  res.send(result);
+});
+
+// app.get("/all-products-posted-by-seller", async (req, res) => {
+//   const userEmail = req.params.email;
+//   const query = { email: userEmail };
+//   const products = await productCollection.find(query).toArray();
+//   res.send(products);
+// });
+
+app.get("/all-products-posted-by-seller", async (req, res) => {
+  try {
+    const userEmail = req.query.email; // Corrected to query parameters
+    if (!userEmail) {
+      return res.status(400).send({ message: "Email is required" });
+    }
+    const query = { email: userEmail };
+    const products = await productCollection.find(query).toArray();
+    res.send(products);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).send({ message: "Failed to fetch products" });
+  }
+});
+
 app.patch("/wishlist/add", async (req, res) => {
   const { productId, userEmail } = req.body;
   const result = await userCollection.updateOne(
