@@ -169,6 +169,12 @@ const dbConnect = async () => {
 
   //Products related API
 
+  app.get("/product/:pid", async (req, res) => {
+    const pid = req.params.pid;
+    const product = await productCollection.findOne({ _id: new ObjectId(pid) });
+    res.send(product);
+  });
+
   app.get("/all-products", async (req, res) => {
     try {
       const { title, sort, category, brand, page = 1, limit = 9 } = req.query;
