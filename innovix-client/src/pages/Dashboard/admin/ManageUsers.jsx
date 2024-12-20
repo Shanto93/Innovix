@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import useAllUsers from "../../../hooks/useAllUsers";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
@@ -101,13 +102,13 @@ const ManageUsers = () => {
                       <div className="flex justify-center  items-center gap-3">
                         <button
                           onClick={() => handleAcceptRequest(user._id)}
-                          className="btn-sm py-0 bg-green-500"
+                          className="btn-sm py-0 bg-green-500 border-none shadow-2xl"
                         >
                           Accept
                         </button>
                         <button
                           onClick={() => handleRejectRequest(user._id)}
-                          className="btn-sm py-0 bg-red-600"
+                          className="btn-sm py-0 bg-red-600 border-none shadow-2xl"
                         >
                           Reject
                         </button>
@@ -135,9 +136,20 @@ const ManageUsers = () => {
                     </button>
                   </td>
                   <td className="text-white">
-                    <button className="btn-sm py-0 bg-[#FFD700] border-none shadow-2xl">
-                      Edit
-                    </button>
+                    <Link to={`/dashboard/edituserinfo/${user.email}`}>
+                      {user.role === "admin" ? (
+                        <button
+                          disabled
+                          className="btn-sm py-0 bg-[#FFD700] border-none shadow-2xl"
+                        >
+                          Edit
+                        </button>
+                      ) : (
+                        <button className="btn-sm py-0 bg-[#FFD700] border-none shadow-2xl">
+                          Edit
+                        </button>
+                      )}
+                    </Link>
                   </td>
                 </tr>
               ))

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 import { GrOverview } from "react-icons/gr";
 import { IoHomeOutline } from "react-icons/io5";
 import useUserData from "./../../hooks/useUserData";
-import { MdOutlineInventory2 } from "react-icons/md";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import logo from "../../assets/innovix_logo.gif";
 import { BsCart3 } from "react-icons/bs";
@@ -24,12 +23,6 @@ const SideBar = () => {
   const sellerRoutes = [
     {
       id: 1,
-      path: "/dashboard/my-products",
-      title: "My Products",
-      icon: <MdOutlineInventory2 />,
-    },
-    {
-      id: 2,
       path: "/dashboard/add-product",
       title: "Add Products",
       icon: <IoIosAddCircleOutline />,

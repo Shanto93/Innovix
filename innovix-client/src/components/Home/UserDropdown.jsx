@@ -41,7 +41,7 @@ const UserDropdown = () => {
         </li>
         <li>
           <button
-            className="bg-[#fc0505] shadow-2xl shadow-red-500/50 text-white hover:bg-[#ff3b3b]"
+            className="bg-[#fc0505] shadow-2xl  text-white hover:bg-[#ff3b3b]"
             onClick={handleLogout}
           >
             Logout

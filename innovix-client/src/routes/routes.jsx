@@ -19,6 +19,8 @@ import MyWishList from "../pages/Dashboard/buyer/MyWishList";
 import ManageUsers from "../pages/Dashboard/admin/ManageUsers";
 import AdminRoutes from "./Private/AdminRoutes";
 import Pending from "../pages/Dashboard/pending/Pending";
+import EditUserInfo from "../pages/Dashboard/admin/EditUserInfo";
+import { axiosPublic } from "../hooks/useAxiosPublic";
 
 export const router = createBrowserRouter([
   {
@@ -78,6 +80,16 @@ export const router = createBrowserRouter([
             <ManageUsers></ManageUsers>
           </AdminRoutes>
         ),
+      },
+      {
+        path: "/dashboard/edituserinfo/:email",
+        element: (
+          <AdminRoutes>
+            <EditUserInfo></EditUserInfo>
+          </AdminRoutes>
+        ),
+        loader: ({ params }) =>
+          axiosPublic.get(`/users/${params.email}`),
       },
       //Pending Routes
       {
