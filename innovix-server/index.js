@@ -176,6 +176,22 @@ const dbConnect = async () => {
     res.send(product);
   });
 
+  // app.get("/all-product-hook", async (req, res) => {
+  //   const products = await productCollection.find().toArray();
+  //   res.send(products);
+  // });
+
+  app.get("/all-product-hook", async (req, res) => {
+    try {
+      const products = await productCollection.find().toArray();
+      res.send({ success: true, data: products });
+    } catch (error) {
+      console.error("Error fetching products:", error.message);
+      res.status(500).send({ success: false, message: "Failed to fetch products" });
+    }
+  });
+  
+
   app.get("/all-products", async (req, res) => {
     try {
       const { title, sort, category, brand, page = 1, limit = 9 } = req.query;
