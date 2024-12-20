@@ -151,6 +151,7 @@ const dbConnect = async () => {
     const result = await userCollection.updateOne(query, updatedDoc);
     res.send(result);
   });
+
   app.patch("/dashboard/update-user/:userId", async (req, res) => {
     const userId = req.params.userId;
     const data = req.body;
@@ -237,12 +238,25 @@ app.delete("/delete-produce/:uId", async (req, res) => {
   res.send(result);
 });
 
-// app.get("/all-products-posted-by-seller", async (req, res) => {
-//   const userEmail = req.params.email;
-//   const query = { email: userEmail };
-//   const products = await productCollection.find(query).toArray();
-//   res.send(products);
-// });
+app.patch("/update-product/:productId", async (req, res) => {
+  const productId = req.params.productId;
+  const data = req.body;
+  const query = { _id: new ObjectId(productId) };
+  const updatedDoc = {
+    $set: {
+      title: data.title,
+      brand: data.brand,
+      imageURL: data.imageURL,
+      price: data.price,
+      stock: data.stock,
+      category: data.category,
+      description: data.description,
+      email: data.email,
+    },
+  };
+  const result = await productCollection.updateOne(query, updatedDoc);
+  res.send(result);
+});
 
 app.get("/all-products-posted-by-seller", async (req, res) => {
   try {
