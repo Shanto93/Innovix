@@ -16,7 +16,7 @@ const Home = () => {
         </div>
         <div className="my-16">
           <h2 className="title text-3xl font-bold text-wrap text-center mb-10 text-[#1E90FF] ">
-            Reviews
+          Words from Happy Customers
           </h2>
           <Reviews></Reviews>
         </div>
