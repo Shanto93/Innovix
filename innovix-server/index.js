@@ -103,15 +103,26 @@ const dbConnect = async () => {
       }
     });
 
+    // app.post("/users", async (req, res) => {
+    //   const user = req.body;
+    //   const query = { email: user.email };
+    //   const existingUser = await userCollection.findOne(query);
+    //   if (existingUser) {
+    //     return res.sendStatus({ message: "User already exists" });
+    //   }
+    //   const result = await userCollection.insertOne(user);
+    //   res.send(result);
+    // });
+
     app.post("/users", async (req, res) => {
       const user = req.body;
       const query = { email: user.email };
       const existingUser = await userCollection.findOne(query);
       if (existingUser) {
-        return res.sendStatus({ message: "User already exists" });
+        return res.status(409).json({ message: "User already exists" }); // Use 409 Conflict status code
       }
       const result = await userCollection.insertOne(user);
-      res.send(result);
+      res.status(201).json(result); // Use 201 Created status code
     });
   } catch (error) {
     console.log(error.name, error.message);
@@ -124,14 +135,42 @@ const dbConnect = async () => {
     res.send(result);
   });
 
-  //Admin related API
+  //Make Seller related API
 
-  app.patch("/users/admin/:userId", async (req, res) => {
+  app.patch("/users/makeseller/:userId", async (req, res) => {
     const userId = req.params.userId;
     const query = { _id: new ObjectId(userId) };
     const updatedDoc = {
       $set: {
-        role: "admin",
+        role: "seller",
+        status: "approved",
+      },
+    };
+    const result = await userCollection.updateOne(query, updatedDoc);
+    res.send(result);
+  });
+  app.patch("/users/makebuyer/:userId", async (req, res) => {
+    const userId = req.params.userId;
+    const query = { _id: new ObjectId(userId) };
+    const updatedDoc = {
+      $set: {
+        role: "buyer",
+        status: "rejected",
+      },
+    };
+    const result = await userCollection.updateOne(query, updatedDoc);
+    res.send(result);
+  });
+  app.patch("/dashboard/update-user/:userId", async (req, res) => {
+    const userId = req.params.userId;
+    const data = req.body;
+    const query = { _id: new ObjectId(userId) };
+    const updatedDoc = {
+      $set: {
+        name: data.name,
+        photoURL: data.photoURL,
+        role: data.role,
+        status: data.status,
       },
     };
     const result = await userCollection.updateOne(query, updatedDoc);
