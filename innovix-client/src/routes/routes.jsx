@@ -21,6 +21,8 @@ import AdminRoutes from "./Private/AdminRoutes";
 import Pending from "../pages/Dashboard/pending/Pending";
 import EditUserInfo from "../pages/Dashboard/admin/EditUserInfo";
 import { axiosPublic } from "../hooks/useAxiosPublic";
+import AddReview from "../pages/Dashboard/buyer/AddReview";
+import ManageProducts from "../pages/Dashboard/seller/ManageProducts";
 
 export const router = createBrowserRouter([
   {
@@ -88,8 +90,7 @@ export const router = createBrowserRouter([
             <EditUserInfo></EditUserInfo>
           </AdminRoutes>
         ),
-        loader: ({ params }) =>
-          axiosPublic.get(`/users/${params.email}`),
+        loader: ({ params }) => axiosPublic.get(`/users/${params.email}`),
       },
       //Pending Routes
       {
@@ -102,7 +103,15 @@ export const router = createBrowserRouter([
         path: "/dashboard/wishlist",
         element: (
           <BuyerRoute>
-            <MyWishList></MyWishList>{" "}
+            <MyWishList></MyWishList>
+          </BuyerRoute>
+        ),
+      },
+      {
+        path: "/dashboard/addReview",
+        element: (
+          <BuyerRoute>
+            <AddReview></AddReview>
           </BuyerRoute>
         ),
       },
@@ -121,6 +130,14 @@ export const router = createBrowserRouter([
         element: (
           <SellerRoutes>
             <AddProduct></AddProduct>
+          </SellerRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/manage-products",
+        element: (
+          <SellerRoutes>
+            <ManageProducts></ManageProducts>
           </SellerRoutes>
         ),
       },

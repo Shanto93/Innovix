@@ -22,9 +22,10 @@ const UserDropdown = () => {
         className="btn m-1 bg-transparent border-none hover:bg-transparent"
       >
         <div className="flex">
-          {userData?.role !== "seller" && (
-            <div className="badge badge-secondary">+{totalWishlist} </div>
-          )}
+          {userData?.role === "seller" ?
+          <div className="badge badge-secondary badge-outline">Seller </div>:
+          <div className="badge badge-secondary">+{totalWishlist} </div>
+          }
           <div className="avatar">
             <div className="ring-primary ring-offset-base-100 w-12 rounded-full ring ring-offset-2">
               <img src={user.photoURL} />

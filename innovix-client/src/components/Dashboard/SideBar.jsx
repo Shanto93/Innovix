@@ -9,6 +9,8 @@ import { BsCart3 } from "react-icons/bs";
 import { CiEdit } from "react-icons/ci";
 import useAuth from "./../../hooks/useAuth";
 import { MdOutlinePendingActions } from "react-icons/md";
+import { FaRegAddressBook } from "react-icons/fa";
+import { RiProductHuntLine } from "react-icons/ri";
 
 const SideBar = () => {
   const { userData } = useUserData();
@@ -27,6 +29,12 @@ const SideBar = () => {
       title: "Add Products",
       icon: <IoIosAddCircleOutline />,
     },
+    {
+      id: 2,
+      path: "/dashboard/manage-products",
+      title: "Manage Products",
+      icon: <RiProductHuntLine />,
+    },
   ];
   const buyerRoutes = [
     {
@@ -34,6 +42,12 @@ const SideBar = () => {
       path: "/dashboard/wishlist",
       title: "My Wishlist",
       icon: <BsCart3 />,
+    },
+    {
+      id: 2,
+      path: "/dashboard/addReview",
+      title: "Add Review",
+      icon: <FaRegAddressBook />,
     },
   ];
   const adminRoutes = [

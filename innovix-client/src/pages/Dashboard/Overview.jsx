@@ -2,7 +2,7 @@ import useUserData from "./../../hooks/useUserData";
 
 const Overview = () => {
   const { userData } = useUserData();
-  console.log(userData);
+  // console.log(userData);
   return (
     <div className="flex flex-col justify-center items-center min-h-screen w-full">
       {/* Diff */}
@@ -17,7 +17,7 @@ const Overview = () => {
               <div className="flex justify-center items-center mt-8">
                 <div className="avatar online">
                   <div className="w-40 rounded-full">
-                    <img src={userData.photoURL} />
+                    <img src={userData?.photoURL} />
                   </div>
                 </div>
               </div>
@@ -26,10 +26,10 @@ const Overview = () => {
 
               <div className="flex flex-col justify-center items-center mt-5 gap-5">
                 <div className="badge badge-secondary badge-outline">
-                  {userData.role}
+                  {userData?.role}
                 </div>
                 <div className="badge badge-accent badge-outline">
-                  {userData.email}{" "}
+                  {userData?.email}
                 </div>
               </div>
             </div>
@@ -44,7 +44,7 @@ const Overview = () => {
               <div className="flex justify-center items-center mt-8">
                 <div className="avatar online">
                   <div className="w-40 rounded-full">
-                    <img src={userData.photoURL} />
+                    <img src={userData?.photoURL} />
                   </div>
                 </div>
               </div>
@@ -53,10 +53,10 @@ const Overview = () => {
 
               <div className="flex flex-col justify-center items-center mt-5 gap-5">
                 <div className="badge badge-secondary badge-outline">
-                  {userData.role}
+                  {userData?.role}
                 </div>
                 <div className="badge badge-accent badge-outline">
-                  {userData.email}{" "}
+                  {userData?.email}
                 </div>
               </div>
             </div>
