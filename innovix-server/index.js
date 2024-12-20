@@ -59,6 +59,7 @@ const client = new MongoClient(url, {
 
 const userCollection = client.db("innivixdb").collection("users");
 const productCollection = client.db("innivixdb").collection("products");
+const reviewsCollection = client.db("innivixdb").collection("reviews");
 
 const dbConnect = async () => {
   try {
@@ -103,26 +104,15 @@ const dbConnect = async () => {
       }
     });
 
-    // app.post("/users", async (req, res) => {
-    //   const user = req.body;
-    //   const query = { email: user.email };
-    //   const existingUser = await userCollection.findOne(query);
-    //   if (existingUser) {
-    //     return res.sendStatus({ message: "User already exists" });
-    //   }
-    //   const result = await userCollection.insertOne(user);
-    //   res.send(result);
-    // });
-
     app.post("/users", async (req, res) => {
       const user = req.body;
       const query = { email: user.email };
       const existingUser = await userCollection.findOne(query);
       if (existingUser) {
-        return res.status(409).json({ message: "User already exists" }); // Use 409 Conflict status code
+        return res.status(409).json({ message: "User already exists" });
       }
       const result = await userCollection.insertOne(user);
-      res.status(201).json(result); // Use 201 Created status code
+      res.status(201).json(result);
     });
   } catch (error) {
     console.log(error.name, error.message);
@@ -284,6 +274,17 @@ app.get("/wishlist/:userId", verifyToken, async (req, res) => {
     console.error("Error fetching wishlist:", error);
     res.status(500).send({ message: "Internal server error" });
   }
+});
+
+//Review related API
+app.post("/add-review", verifyToken, async (req, res) => {
+  const data = req.body;
+  const result = await reviewsCollection.insertOne(data);
+  res.send(result);
+});
+app.get("/all-reviews", async (req, res) => {
+  const result = await reviewsCollection.find().toArray();
+  res.send(result);
 });
 
 dbConnect();
