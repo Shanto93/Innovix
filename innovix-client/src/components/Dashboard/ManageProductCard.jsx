@@ -1,5 +1,6 @@
 import { toast } from "sonner";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { Link } from "react-router";
 
 /* eslint-disable react/prop-types */
 const ManageProductCard = ({ product, refetch }) => {
@@ -59,9 +60,11 @@ const ManageProductCard = ({ product, refetch }) => {
           )}
         </p>
         <div className="flex justify-between items-center card-actions mb-2 px-3">
-          <button className="card-btn btn-sm py-0 bg-green-600 border-none shadow-2xl">
-            UPDATE
-          </button>
+          <Link to={`/dashboard/update-product/${_id}`}>
+            <button className="card-btn btn-sm py-0 bg-green-600 border-none shadow-2xl">
+              UPDATE
+            </button>
+          </Link>
           <button
             onClick={() => handleDeleteProduct(_id)}
             className="card-btn btn-sm py-0 bg-[#fc0505] border-none shadow-2xl"

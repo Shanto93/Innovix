@@ -23,6 +23,7 @@ import EditUserInfo from "../pages/Dashboard/admin/EditUserInfo";
 import { axiosPublic } from "../hooks/useAxiosPublic";
 import AddReview from "../pages/Dashboard/buyer/AddReview";
 import ManageProducts from "../pages/Dashboard/seller/ManageProducts";
+import UpdateProduct from "../pages/Dashboard/seller/UpdateProduct";
 
 export const router = createBrowserRouter([
   {
@@ -141,8 +142,15 @@ export const router = createBrowserRouter([
           </SellerRoutes>
         ),
       },
-
-      //Buyer Routes
+      {
+        path: "/dashboard/update-product/:id",
+        element: (
+          <SellerRoutes>
+            <UpdateProduct></UpdateProduct>
+          </SellerRoutes>
+        ),
+        loader: ({ params }) => axiosPublic.get(`/product/${params.id}`),
+      },
     ],
   },
 ]);
