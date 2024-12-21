@@ -17,7 +17,7 @@ const ContactInfo = () => {
     >
       <div className="flex justify-center space-x-10">
         <motion.a
-          whileHover={{ scale: 1.2 }}
+          whileHover={{ scale: 1.3 }}
           href="https://www.facebook.com/shanto.islam.98478672/"
           target="_blank"
           rel="noopener noreferrer"
@@ -26,7 +26,7 @@ const ContactInfo = () => {
           <FaFacebook />
         </motion.a>
         <motion.a
-          whileHover={{ scale: 1.2 }}
+          whileHover={{ scale: 1.3 }}
           href="https://wa.me/1234567890"
           target="_blank"
           rel="noopener noreferrer"
@@ -35,7 +35,7 @@ const ContactInfo = () => {
           <FaWhatsapp />
         </motion.a>
         <motion.a
-          whileHover={{ scale: 1.2 }}
+          whileHover={{ scale: 1.3 }}
           href="https://www.instagram.com/yourprofile"
           target="_blank"
           rel="noopener noreferrer"
@@ -44,14 +44,14 @@ const ContactInfo = () => {
           <FaInstagram />
         </motion.a>
         <motion.a
-          whileHover={{ scale: 1.2 }}
+          whileHover={{ scale: 1.3 }}
           href="shantoislam7363@gmail.com"
           className="text-blue-600 text-5xl"
         >
           <FaEnvelope />
         </motion.a>
         <motion.a
-          whileHover={{ scale: 1.2 }}
+          whileHover={{ scale: 1.3 }}
           href="tel:+8801997266467"
           className="text-blue-800 text-5xl"
         >

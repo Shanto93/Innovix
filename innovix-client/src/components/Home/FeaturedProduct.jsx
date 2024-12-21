@@ -6,7 +6,7 @@ const FeaturedProduct = () => {
   console.log(allProducts?.data?.length);
 
   return (
-    <div className="grid md:grid-cols-4 gap-4">
+    <div className="grid md:grid-cols-4 gap-4 mt-8">
       {allProducts?.data?.slice(0,4).map((product) => (
         <ProductCards key={product._id} product={product}></ProductCards>
       ))}
