@@ -1,4 +1,6 @@
+import { Helmet } from "react-helmet-async";
 import Banner from "../../components/Home/Banner";
+import CategoryPage from "../../components/Home/CategoryPage";
 import ContactInfo from "../../components/Home/ContactInfo";
 import FAQ from "../../components/Home/FAQ";
 import FeaturedProduct from "../../components/Home/FeaturedProduct";
@@ -7,6 +9,9 @@ import Reviews from "../../components/Home/Reviews";
 const Home = () => {
   return (
     <div>
+      <Helmet>
+        <title>Innovix | Home</title>
+      </Helmet>
       <Banner></Banner>
       <div className="max-w-screen-lg mx-auto">
         <div className="my-16">
@@ -26,6 +31,12 @@ const Home = () => {
             Frequently Asked Questions
           </h2>
           <FAQ></FAQ>
+        </div>
+        <div className="my-16">
+          <h2 className="title text-3xl font-bold text-wrap text-center mb-10">
+          Shop by Category
+          </h2>
+          <CategoryPage></CategoryPage>
         </div>
         <div className="my-16">
           <h2 className="title text-3xl font-bold text-wrap text-center mb-10">

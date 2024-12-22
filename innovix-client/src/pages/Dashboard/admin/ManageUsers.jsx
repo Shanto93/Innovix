@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import useAllUsers from "../../../hooks/useAllUsers";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const ManageUsers = () => {
   const { allUsers, refetch } = useAllUsers();
@@ -57,6 +58,9 @@ const ManageUsers = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Innovix | Manage Users</title>
+      </Helmet>
       <div className="overflow-x-auto">
         <table className="table">
           <thead>

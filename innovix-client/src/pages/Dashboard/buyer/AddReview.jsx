@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { toast } from "sonner";
+import { Helmet } from "react-helmet-async";
 
 const AddReview = () => {
   const { user } = useAuth();
@@ -45,6 +46,9 @@ const AddReview = () => {
   return (
     <div>
       <h2 className="title">Add Product</h2>
+      <Helmet>
+        <title>Innovix | Add Review</title>
+      </Helmet>
       <p className="subtitle">Add your review here</p>
       <form onSubmit={handleSubmit(onSubmit)} className="card-body">
         {/* title */}

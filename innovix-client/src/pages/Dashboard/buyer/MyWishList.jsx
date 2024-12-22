@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import WishListCard from "../../../components/Dashboard/WishListCard";
 import Loading from "../../../components/Loading/Loading";
 import useWishList from "../../../hooks/useWishList";
@@ -7,6 +8,9 @@ const MyWishList = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Innovix | My Wishlist</title>
+      </Helmet>
       <h2 className="title text-center mb-8">My Wishlist</h2>
       {isLoading ? (
         <Loading></Loading>

@@ -1,9 +1,13 @@
 import { Link } from "react-router";
 import image from "./../../assets/about_us.png";
+import { Helmet } from "react-helmet-async";
 
 const About = () => {
   return (
     <section className=" text-white py-12 px-6 md:px-16">
+      <Helmet>
+        <title>Innovix | About</title>
+      </Helmet>
       <div className="max-w-5xl mx-auto text-center">
         {/* Title */}
         <h1 className="text-4xl md:text-5xl font-bold text-[#FF007F] mb-4">

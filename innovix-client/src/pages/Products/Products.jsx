@@ -9,6 +9,7 @@ import {
   FaRegArrowAltCircleRight,
   FaRegArrowAltCircleLeft,
 } from "react-icons/fa";
+import { Helmet } from "react-helmet-async";
 
 const Products = () => {
   const axiosPublic = useAxiosPublic();
@@ -68,6 +69,9 @@ const Products = () => {
 
   return (
     <div className="container mx-auto">
+      <Helmet>
+        <title>Innovix | Products</title>
+      </Helmet>
       <h2 className="title text-3xl text-center font-semibold">All Products</h2>
 
       {/* Searching and sorting */}
@@ -146,7 +150,10 @@ const Products = () => {
           <select
             onChange={(e) => setLimit(e.target.value)}
             className="p-2 ml-2"
-          ><option disabled defaultValue={5}>5</option>
+          >
+            <option disabled defaultValue={5}>
+              5
+            </option>
             <option value={1}>1</option>
             <option value={2}>2</option>
             <option value={3}>3</option>

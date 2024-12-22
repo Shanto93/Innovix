@@ -60,7 +60,7 @@ const ProductCard = ({ product }) => {
         <div className="flex items-center w-full px-4">
           <p className="text-md font-bold text-white ">{brand} </p>
           <p className="text-sm font-semibold text-end text-white">
-            {category}{" "}
+            {category}
           </p>
         </div>
         <p className="text-sm text-center text-white">

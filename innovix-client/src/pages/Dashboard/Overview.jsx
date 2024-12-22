@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import useUserData from "./../../hooks/useUserData";
 
 const Overview = () => {
@@ -5,6 +6,9 @@ const Overview = () => {
   // console.log(userData);
   return (
     <div className="flex flex-col justify-center items-center min-h-screen w-full">
+      <Helmet>
+        <title>Innovix | Overview</title>
+      </Helmet>
       {/* Diff */}
       <div className="w-full h-full">
         <div className="diff aspect-[16/9]">

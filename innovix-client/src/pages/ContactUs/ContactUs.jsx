@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { toast } from "sonner";
 
 const ContactUs = () => {
@@ -9,6 +10,9 @@ const ContactUs = () => {
 
   return (
     <div className="min-h-screen text-white py-16 px-6">
+      <Helmet>
+        <title>Innovix | Contact Us</title>
+      </Helmet>
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold text-center mb-8 title">
           Contact Us

@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import ManageProductCard from "../../../components/Dashboard/ManageProductCard";
 import useSellerProducts from "../../../hooks/useSellerProducts";
 
@@ -21,6 +22,9 @@ const ManageProducts = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Innovix | Manage Products</title>
+      </Helmet>
       <h2 className="title mb-8">Manage Products</h2>
 
       {error && <p className="text-red-500">Error: {error}</p>}
