@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router";
 import useAuth from "./../hooks/useAuth";
 import UserDropdown from "../components/Home/UserDropdown";
-import logo from "../assets/innovix_logo.gif"
+import logo from "../assets/innovix_logo.gif";
 
 const Navbar = () => {
   const { user } = useAuth();
@@ -86,7 +86,9 @@ const Navbar = () => {
           </ul>
         </div>
         {/* <a className="btn btn-ghost text-2xl">Innovix </a> */}
-        <img className="w-32" src={logo} alt="Logo" />
+        <Link to="/">
+          <img className="w-32" src={logo} alt="Logo" />
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navLinks}</ul>
@@ -99,7 +101,9 @@ const Navbar = () => {
         <div className="navbar-end">
           <div className="flex gap-2 items-center">
             <Link to="/login">
-              <button className=" btn-sm px-3 py-0 bg-black text-white">Login</button>
+              <button className=" btn-sm px-3 py-0 bg-black text-white">
+                Login
+              </button>
             </Link>
             <Link to="/register">
               <button className="btn-sm px-3 py-0 bg-black text-white">

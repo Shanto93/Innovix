@@ -45,7 +45,7 @@ const AddReview = () => {
 
   return (
     <div>
-      <h2 className="title">Add Product</h2>
+      <h2 className="title">Add Review</h2>
       <Helmet>
         <title>Innovix | Add Review</title>
       </Helmet>

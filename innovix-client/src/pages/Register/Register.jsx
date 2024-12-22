@@ -5,7 +5,8 @@ import { toast } from "sonner";
 import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import registerImage from "./../../assets/register.gif";
+import registerImage from "./../../assets/register_now_image.svg";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
   const { createUser, updateUser } = useContext(AuthContext);
@@ -22,180 +23,170 @@ const Register = () => {
 
   const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
-  // console.log(image_hosting_api, image_hosting_key);
 
   const onSubmit = async (data) => {
-    const imageFile = { image: data.photoURL[0] };
-    const res = await axiosPublic.post(image_hosting_api, imageFile, {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    });
-    // console.log(res);
+    try {
+      const imageFile = { image: data.photoURL[0] };
+      const res = await axiosPublic.post(image_hosting_api, imageFile, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      });
 
-    const name = data.name;
-    const email = data.email;
-    const photoURL = res.data.data.display_url;
-    const role = data.role;
-    const status = data.role === "buyer" ? "approved" : "pending";
-    const wishlist = [];
-    const userData = { name, email, photoURL, role, status, wishlist };
-    // console.log(userData);
+      const name = data.name;
+      const email = data.email;
+      const photoURL = res.data.data.display_url;
+      const role = data.role;
+      const status = data.role === "buyer" ? "approved" : "pending";
+      const wishlist = [];
+      const userData = { name, email, photoURL, role, status, wishlist };
 
-    // eslint-disable-next-line no-unused-vars
-    createUser(email, data.password).then((result) => {
-      updateUser(name, photoURL)
-        .then(() => {
-          axiosPublic.post("/users", userData).then((res) => {
-            console.log(res.data);
-            if (res.data.insertedId) {
-              console.log("User created successfully");
-              reset();
-              toast.success("User Successfully registered");
-              navigate("/");
-            }
-          });
-        })
-        .catch((error) => console.log(error));
-      // console.log(result);
-    });
+      await createUser(email, data.password);
+      await updateUser(name, photoURL);
+      const userRes = await axiosPublic.post("/users", userData);
+
+      if (userRes.data.insertedId) {
+        reset();
+        toast.success("User Successfully registered");
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+      toast.error("An error occurred during registration.");
+    }
   };
 
   return (
     <div className="hero bg-[#1E1E2F] min-h-screen w-full">
-      <div className="hero-content md:flex gap-16">
+      <Helmet>
+        <title>Innovix | Register</title>
+      </Helmet>
+      <div className="hero-content flex-col md:flex-row gap-16 w-11/12 mx-auto">
         <div className="text-center lg:text-left flex-1">
-          {/* <h1 className=" subtitle text-5xl font-bold text-white">Register now!</h1> */}
-          <img src={registerImage} alt="Animated Register image" />
+          <img
+            src={registerImage}
+            alt="Animated Register image"
+            className="max-w-full mx-auto lg:mx-0"
+          />
         </div>
-        <div className="card bg-[#1E1E2F] w-full  flex-1">
+        <div className="card bg-[#1E1E2F] w-full md:w-auto flex-1">
           <form onSubmit={handleSubmit(onSubmit)} className="card-body w-full">
-            <div className="form-control">
+            <div className="form-control mb-4">
               <label className="label">
                 <span className="label-text text-white">Name</span>
               </label>
               <input
                 type="text"
                 placeholder="name"
-                className="input input-bordered"
-                {...register("name", { required: true })}
+                className="input input-bordered w-full"
+                {...register("name", { required: "Name is required" })}
               />
-              {errors.email && (
-                <p className="text-sm text-red-600 font-light">
-                  Name is required.
+              {errors.name && (
+                <p className="text-sm text-red-600 font-light mt-1">
+                  {errors.name.message}
                 </p>
               )}
             </div>
-            <div className="form-control">
+            <div className="form-control mb-4">
               <label className="label">
                 <span className="label-text text-white">Upload Photo</span>
               </label>
               <input
                 type="file"
-                {...register("photoURL", { required: true })}
-                className="file-input file-input-bordered w-full"
+                {...register("photoURL", { required: "Photo is required" })}
+                className="file-input file-input-bordered w-full text-black"
               />
               {errors.photoURL && (
-                <p className="text-sm text-red-600 font-light">
-                  Photo URL is required.
+                <p className="text-sm text-red-600 font-light mt-1">
+                  {errors.photoURL.message}
                 </p>
               )}
             </div>
 
-            <div className="form-control">
+            <div className="form-control mb-4">
               <label className="label">
                 <span className="label-text text-white">Email</span>
               </label>
               <input
                 type="email"
                 placeholder="email"
-                className="input input-bordered"
-                {...register("email", { required: true })}
+                className="input input-bordered w-full"
+                {...register("email", { required: "Email is required" })}
               />
               {errors.email && (
-                <p className="text-sm text-red-600 font-light">
-                  Email is required.
+                <p className="text-sm text-red-600 font-light mt-1">
+                  {errors.email.message}
                 </p>
               )}
             </div>
-            <div className="form-control">
+            <div className="form-control mb-4">
               <label className="label">
                 <span className="label-text text-white">Password</span>
               </label>
               <input
                 type="password"
                 placeholder="password"
-                className="input input-bordered"
+                className="input input-bordered w-full"
                 {...register("password", {
                   required: "Password is required",
                   minLength: {
                     value: 6,
-                    message: "Password must be at least 8 characters",
+                    message: "Password must be at least 6 characters",
                   },
-                  maxLength: {
-                    value: 12,
-                    message: "Password cannot exceed 12 characters",
-                  },
-                  // pattern: {
-                  //   value:
-                  //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/,
-                  //   message:
-                  //     "Password must include uppercase, lowercase, number, and special character",
-                  // },
                 })}
               />
+              {errors.password && (
+                <p className="text-sm text-red-600 font-light mt-1">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
-            <p className="text-red-500">
-              {errors.password && errors.password.message}
-            </p>
-
-            <div className="form-control">
+            <div className="form-control mb-4">
               <label className="label">
                 <span className="label-text text-white">Confirm Password</span>
               </label>
               <input
                 type="password"
                 placeholder="Confirm password"
-                className="input input-bordered"
+                className="input input-bordered w-full"
                 {...register("confirmPassword", {
-                  required: true,
-                  validate: (value) => {
-                    if (watch("password") !== value) {
-                      return "Your password do not match";
-                    }
-                  },
+                  required: "Confirm Password is required",
+                  validate: (value) =>
+                    value === watch("password") || "Passwords do not match",
                 })}
               />
               {errors.confirmPassword && (
-                <p className="text-sm text-red-600 font-light">
-                  Both passwords should be same.
+                <p className="text-sm text-red-600 font-light mt-1">
+                  {errors.confirmPassword.message}
                 </p>
               )}
             </div>
-            <div className="form-control">
+            <div className="form-control mb-4">
               <label className="label">
                 <span className="label-text text-white">Role</span>
               </label>
               <select
-                className="select select-bordered w-full"
+                className="select select-bordered w-full text-black"
                 {...register("role", { required: true })}
               >
-                <option defaultValue="buyer">buyer</option>
-                <option value="pending">seller</option>
+                <option value="buyer">Buyer</option>
+                <option value="seller">Seller</option>
               </select>
             </div>
             <div className="form-control mt-6">
-              <button type="submit" className="bg-[#FFD700]">
+              <button
+                type="submit"
+                className="bg-[#FFD700] w-full py-2 rounded hover:bg-[#c9af00] text-black"
+              >
                 Register
               </button>
             </div>
-            <GoogleLogin></GoogleLogin>
-            <h2 className="my-2 text-white">
-              Already have account?
-              <Link to="/login">
-                <span className="text-[#FFD700] text-sm">Login </span>
+            <GoogleLogin />
+            <h2 className="my-2 text-white text-center">
+              Already have account?{" "}
+              <Link to="/login" className="text-[#FFD700] hover:underline">
+                Login
               </Link>
-              now
             </h2>
           </form>
         </div>
