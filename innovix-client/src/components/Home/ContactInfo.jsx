@@ -15,7 +15,7 @@ const ContactInfo = () => {
       transition={{ duration: 0.8 }}
       className="flex justify-center items-center p-12 h-full rounded-lg border border-[#00BFFF] shadow-md max-w-3xl mx-auto mt-8 text-center bg-[#1a1a1a] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_#00FFFF]"
     >
-      <div className="flex justify-center space-x-10">
+      <div className="md:flex justify-center space-x-10">
         <motion.a
           whileHover={{ scale: 1.3 }}
           href="https://www.facebook.com/shanto.islam.98478672/"

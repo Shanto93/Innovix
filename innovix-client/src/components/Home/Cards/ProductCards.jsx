@@ -3,7 +3,7 @@ const ProductCards = ({ product }) => {
   const { title, brand, category, description, imageURL, price, stock } =
     product;
   return (
-    <div className="bg-opacity-15 hover:scale-105  hover:skew-x-3 card rounded-md bg-black  border border-[#00BFFF] w-60 shadow-2xl shadow-sky-500/30 ">
+    <div className="bg-opacity-15 hover:scale-105  hover:skew-x-3 card rounded-md bg-black  border border-[#00BFFF] md:w-60 shadow-2xl shadow-sky-500/30 ">
       <div className="relative">
         <div className="">
           <img

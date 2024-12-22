@@ -50,7 +50,6 @@ const Products = () => {
     setSearch(e.target.search.value);
     e.target.search.value = "";
   };
-  // console.log(totalPage);
 
   const handleReset = () => {
     setBrand("");
@@ -68,45 +67,46 @@ const Products = () => {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto p-4 md:p-6 lg:p-8">
       <Helmet>
         <title>Innovix | Products</title>
       </Helmet>
-      <h2 className="title text-3xl text-center font-semibold">All Products</h2>
+      <h2 className="title text-2xl sm:text-3xl text-center font-semibold mb-4">
+        All Products
+      </h2>
 
       {/* Searching and sorting */}
-      <div className="md:flex justify-between items-center">
-        <SearchBar handleSearch={handleSearch}></SearchBar>
-        <SortByPrice setSort={setSort}></SortByPrice>
+      <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+        <SearchBar handleSearch={handleSearch} />
+        <SortByPrice setSort={setSort} />
       </div>
 
-      {/* content */}
-      <div className="grid grid-cols-12 mt-6">
-        <div className="col-span-2">
+      {/* Content */}
+      <div className="grid grid-cols-12 mt-6 gap-4">
+        <div className="col-span-12 md:col-span-3 lg:col-span-2">
           <FilterBar
             setBrand={setBrand}
             setCategory={setCategory}
             handleReset={handleReset}
             uniqueBrands={uniqueBrands}
             uniqueCategorys={uniqueCategorys}
-          ></FilterBar>
+          />
         </div>
-        <div className="col-span-10 p-5">
+        <div className="col-span-12 md:col-span-9 lg:col-span-10 p-4">
           {loading ? (
-            <Loading></Loading>
+            <Loading />
           ) : (
             <>
               {products.length === 0 ? (
-                <div className="flex justify-center items-center w-full h-screen">
-                  <h2 className="text-2xl font-semibold">No Products found</h2>
+                <div className="flex justify-center items-center w-full h-60">
+                  <h2 className="text-lg md:text-2xl font-semibold">
+                    No Products found
+                  </h2>
                 </div>
               ) : (
-                <div className="grid md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                   {products.map((product) => (
-                    <ProductCard
-                      key={product._id}
-                      product={product}
-                    ></ProductCard>
+                    <ProductCard key={product._id} product={product} />
                   ))}
                 </div>
               )}
@@ -116,40 +116,39 @@ const Products = () => {
       </div>
 
       {/* Pagination */}
-
-      <div className="flex justify-center items-center gap-2">
+      <div className="flex justify-center items-center gap-4 mt-6">
         <button
           disabled={page === 1}
           onClick={() => handlePage(page - 1)}
-          className={`my-2 btn ${
+          className={`btn ${
             page !== 1
               ? "glow-effect hover:scale-105"
               : "opacity-50 cursor-not-allowed"
           }`}
         >
-          <FaRegArrowAltCircleLeft className="text-3xl text-pink-500" />
+          <FaRegArrowAltCircleLeft className="text-2xl md:text-3xl text-pink-500" />
         </button>
 
-        <p className="text-xl text-[#FFD700]">
+        <p className="text-base md:text-lg lg:text-xl text-[#FFD700]">
           Page: {page} of {totalPage}
         </p>
 
         <button
           disabled={page === totalPage}
           onClick={() => handlePage(page + 1)}
-          className={`my-2 btn ${
+          className={`btn ${
             page !== totalPage
               ? "glow-effect hover:scale-105"
               : "opacity-50 cursor-not-allowed"
           }`}
         >
-          <FaRegArrowAltCircleRight className="text-3xl text-pink-500" />
+          <FaRegArrowAltCircleRight className="text-2xl md:text-3xl text-pink-500" />
         </button>
 
         <div>
           <select
             onChange={(e) => setLimit(e.target.value)}
-            className="p-2 ml-2"
+            className="p-2 border border-gray-300 rounded"
           >
             <option disabled defaultValue={5}>
               5
