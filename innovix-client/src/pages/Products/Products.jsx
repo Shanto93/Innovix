@@ -23,7 +23,7 @@ const Products = () => {
   const [uniqueCategorys, setUniqueCategorys] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(9);
 
   useEffect(() => {
     setLoading(true);
@@ -150,8 +150,8 @@ const Products = () => {
             onChange={(e) => setLimit(e.target.value)}
             className="p-2 border border-gray-300 rounded"
           >
-            <option disabled defaultValue={5}>
-              5
+            <option disabled defaultValue={9}>
+              9
             </option>
             <option value={1}>1</option>
             <option value={2}>2</option>
@@ -161,7 +161,7 @@ const Products = () => {
             <option value={6}>6</option>
             <option value={7}>7</option>
             <option value={8}>8</option>
-            <option value={9}>9</option>
+            <option defaultValue={9}>9</option>
             <option value={10}>10</option>
           </select>
         </div>
