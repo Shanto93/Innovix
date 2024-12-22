@@ -60,6 +60,7 @@ const client = new MongoClient(url, {
 const userCollection = client.db("innivixdb").collection("users");
 const productCollection = client.db("innivixdb").collection("products");
 const reviewsCollection = client.db("innivixdb").collection("reviews");
+const contactCollection = client.db("innivixdb").collection("contact");
 
 const dbConnect = async () => {
   try {
@@ -183,14 +184,18 @@ const dbConnect = async () => {
 
   app.get("/all-product-hook", async (req, res) => {
     try {
-      const products = await productCollection.find().toArray();
+      const products = await productCollection
+        .find()
+        .sort({ price: -1 })
+        .toArray();
       res.send({ success: true, data: products });
     } catch (error) {
       console.error("Error fetching products:", error.message);
-      res.status(500).send({ success: false, message: "Failed to fetch products" });
+      res
+        .status(500)
+        .send({ success: false, message: "Failed to fetch products" });
     }
   });
-  
 
   app.get("/all-products", async (req, res) => {
     try {
@@ -345,6 +350,11 @@ app.get("/wishlist/:userId", verifyToken, async (req, res) => {
 app.post("/add-review", verifyToken, async (req, res) => {
   const data = req.body;
   const result = await reviewsCollection.insertOne(data);
+  res.send(result);
+});
+app.post("/contact-us-info", async (req, res) => {
+  const data = req.body;
+  const result = await contactCollection.insertOne(data);
   res.send(result);
 });
 app.get("/all-reviews", async (req, res) => {
