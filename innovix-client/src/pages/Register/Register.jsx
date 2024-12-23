@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import GoogleLogin from "../../components/Authentication/GoogleLogin";
@@ -7,11 +8,16 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import registerImage from "./../../assets/register_now_image.svg";
 import { Helmet } from "react-helmet-async";
+import usePasswordVisibility from "../../hooks/usePasswordVisibility";
+import useConfirmPasswordVisibility from "../../hooks/useConfirmPasswordVisibility";
 
 const Register = () => {
   const { createUser, updateUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
+  const [icon, inputType, visible, setVisible] = usePasswordVisibility();
+  const [iconconfirm, inputTypeconfirm, visibleconfirm, setVisibleconfirm] =
+    useConfirmPasswordVisibility();
 
   const {
     register,
@@ -123,24 +129,32 @@ const Register = () => {
               <label className="label">
                 <span className="label-text text-white">Password</span>
               </label>
-              <input
-                type="password"
-                placeholder="password"
-                className="input input-bordered w-full"
-                {...register("password", {
-                  required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters",
-                  },
-                  pattern: {
-                    value:
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/,
-                    message:
-                      "Password must include uppercase, lowercase, number, and special character",
-                  },
-                })}
-              />
+              <div className="relative">
+                <input
+                  type={inputType}
+                  placeholder="password"
+                  className="input input-bordered w-full"
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters",
+                    },
+                    pattern: {
+                      value:
+                        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/,
+                      message:
+                        "Password must include uppercase, lowercase, number, and special character",
+                    },
+                  })}
+                />
+                <span
+                  onClick={() => setVisible((visible) => !visible)}
+                  className="text-[#00ffff] text-2xl absolute right-4 top-3"
+                >
+                  {icon}
+                </span>
+              </div>
               {errors.password && (
                 <p className="text-sm text-red-600 font-light mt-1">
                   {errors.password.message}
@@ -151,16 +165,26 @@ const Register = () => {
               <label className="label">
                 <span className="label-text text-white">Confirm Password</span>
               </label>
-              <input
-                type="password"
-                placeholder="Confirm password"
-                className="input input-bordered w-full"
-                {...register("confirmPassword", {
-                  required: "Confirm Password is required",
-                  validate: (value) =>
-                    value === watch("password") || "Passwords do not match",
-                })}
-              />
+              <div className="relative">
+                <input
+                  type={inputTypeconfirm}
+                  placeholder="Confirm password"
+                  className="input input-bordered w-full"
+                  {...register("confirmPassword", {
+                    required: "Confirm Password is required",
+                    validate: (value) =>
+                      value === watch("password") || "Passwords do not match",
+                  })}
+                />
+                <span
+                  onClick={() =>
+                    setVisibleconfirm((visibleconfirm) => !visibleconfirm)
+                  }
+                  className="text-[#00ffff] text-2xl absolute right-4 top-3"
+                >
+                  {iconconfirm}
+                </span>
+              </div>
               {errors.confirmPassword && (
                 <p className="text-sm text-red-600 font-light mt-1">
                   {errors.confirmPassword.message}
