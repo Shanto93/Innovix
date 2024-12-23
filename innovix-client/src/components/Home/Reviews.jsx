@@ -38,7 +38,7 @@ const Reviews = () => {
                   {review.title}
                 </p>
               </div>
-              <p className="text-center mt-4 text-lg text-gray-200 mb-8">
+              <p className="text-center mt-4 text-lg text-gray-200 mb-8 px-8">
                 {review.description}
               </p>
             </div>

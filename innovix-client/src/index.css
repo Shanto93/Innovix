@@ -119,107 +119,120 @@ textarea:disabled {
   cursor: not-allowed;
 }
 
-
 /* Title Style */
 .title {
-    font-size: 2rem;
-    color: #FF007F;
-    text-align: center; 
-    text-transform: uppercase; 
-    font-weight: 700; 
-    text-shadow: 0 0 10px #FF007F, 0 0 20px #FF007F; /* Neon glow effect */
-    letter-spacing: 2px; 
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .title:hover {
-    color: #00FFFF; 
-    text-shadow: 0 0 15px #00FFFF, 0 0 30px #00FFFF; 
-    transform: scale(1.05); 
-  }
-  
-  
-  .subtitle {
-    /* font-size: 1.25rem;  */
-    color: #00FFFF; 
-    text-align: center; 
-    margin-top: 10px; 
-    font-weight: 400; 
-    text-shadow: 0 0 5px #00FFFF; 
-    transition: all 0.3s ease;
-  }
-  
-  
-  .subtitle:hover {
-    color: #FF007F; 
-    text-shadow: 0 0 10px #FF007F; 
-  }
+  font-size: 2rem;
+  color: #ff007f;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f; /* Neon glow effect */
+  letter-spacing: 2px;
+  transition: all 0.3s ease-in-out;
+}
 
+.title:hover {
+  color: #00ffff;
+  text-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff;
+  transform: scale(1.05);
+}
 
-  /* Card Design */
+.subtitle {
+  /* font-size: 1.25rem;  */
+  color: #00ffff;
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 400;
+  text-shadow: 0 0 5px #00ffff;
+  transition: all 0.3s ease;
+}
 
+.subtitle:hover {
+  color: #ff007f;
+  text-shadow: 0 0 10px #ff007f;
+}
+
+/* Card Design */
 
 .cardd {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .cardd .cardd-btn {
-    background-color: #f511c3; 
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    text-transform: uppercase;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    cursor: pointer;
-  }
-  
-  .cardd .cardd-btn:hover {
-    background-color: #00FFFF; 
-    transform: translateY(-3px);
-  }
-  
-  .cardd:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
-  
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.cardd .cardd-btn {
+  background-color: #f511c3;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
 
-  /* Select style*/
+.cardd .cardd-btn:hover {
+  background-color: #00ffff;
+  transform: translateY(-3px);
+}
+
+.cardd:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Select style*/
 
 .select {
-    background-color: #1e1e1e; 
-    color: #ffffff; 
-    padding: 10px 15px;
-    border: 2px solid #f511c3;
-    border-radius: 5px;
-    font-size: 1rem;
-    outline: none;
-    width: 100%;
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
-  
-  .select:hover {
-    border-color: #00FFFF; 
-    background-color: #333333;
-  }
-  
-  .select:focus {
-    border-color: #00FFFF; 
-    background-color: #333333; 
-    box-shadow: 0 0 5px 2px rgba(0, 255, 255, 0.5); 
-  }
-  
-  .select option {
-    background-color: #1e1e1e; 
-    color: #ffffff;
-    padding: 10px;
-    border: none;
-    font-size: 1rem;
-  }
-  
-  
-  .select option:hover {
-    background-color: #333333; 
-  }
-  
+  background-color: #1e1e1e;
+  color: #ffffff;
+  padding: 10px 15px;
+  border: 2px solid #f511c3;
+  border-radius: 5px;
+  font-size: 1rem;
+  outline: none;
+  width: 100%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.select:hover {
+  border-color: #00ffff;
+  background-color: #333333;
+}
+
+.select:focus {
+  border-color: #00ffff;
+  background-color: #333333;
+  box-shadow: 0 0 5px 2px rgba(0, 255, 255, 0.5);
+}
+
+.select option {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  padding: 10px;
+  border: none;
+  font-size: 1rem;
+}
+
+.select option:hover {
+  background-color: #333333;
+}
+
+/* Swipper */
+.swiper {
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+.swiper-slide {
+  background: #1a1a1a; /* Dark background for cards */
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.swiper-slide-active {
+  transform: scale(1.1); /* Highlight active slide */
+}
