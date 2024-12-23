@@ -23,7 +23,9 @@ const UserDropdown = () => {
       >
         <div className="flex">
           {userData?.role === "seller" ?
-          <div className="badge badge-secondary badge-outline">Seller </div>:
+          <div className="badge badge-secondary badge-outline">Seller </div>: userData?.role === "admin"?
+          <div className="badge badge-secondary badge-outline">Admin </div>
+          :
           <div className="badge badge-secondary">+{totalWishlist} </div>
           }
           <div className="avatar">

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import bannerImage from "./../../assets/banner.png";
+import bannerImage from "./../../assets/tablet.jpeg";
 import { Link } from "react-router";
 
 const Banner = () => {

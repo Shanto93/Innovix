@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
@@ -5,12 +6,15 @@ import { toast } from "sonner";
 import GoogleLogin from "../../components/Authentication/GoogleLogin";
 import loginImage from "./../../assets/login.gif";
 import { Helmet } from "react-helmet-async";
+import usePasswordVisibility from "../../hooks/usePasswordVisibility";
 
 const Login = () => {
   const { loginUser } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+
+  const [icon, inputType, visible, setVisible] = usePasswordVisibility();
 
   const {
     register,
@@ -64,16 +68,24 @@ const Login = () => {
               <label className="label">
                 <span className="label-text text-white">Password</span>
               </label>
-              <input
-                type="password"
-                placeholder="Enter your password"
-                className="input input-bordered w-full"
-                {...register("password", {
-                  required: true,
-                  maxLength: 12,
-                  minLength: 6,
-                })}
-              />
+              <div className="relative">
+                <input
+                  type={inputType}
+                  placeholder="Enter your password"
+                  className="input input-bordered w-full"
+                  {...register("password", {
+                    required: true,
+                    maxLength: 12,
+                    minLength: 6,
+                  })}
+                />
+                <span
+                  onClick={() => setVisible((visible) => !visible)}
+                  className="text-[#00ffff] text-2xl absolute right-4 top-3"
+                >
+                  {icon}
+                </span>
+              </div>
               {errors.password?.type === "required" && (
                 <p className="text-sm text-red-600 font-light">
                   Password is required.

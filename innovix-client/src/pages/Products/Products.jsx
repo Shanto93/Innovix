@@ -16,7 +16,7 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("asc");
+  const [sort, setSort] = useState("des");
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
   const [uniqueBrands, setUniqueBrands] = useState([]);
