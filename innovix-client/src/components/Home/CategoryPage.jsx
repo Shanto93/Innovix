@@ -63,27 +63,27 @@ const categories = [
   {
     id: 1,
     title: "Smartphones",
-    photoURL: "https://i.ibb.co.com/YP0vz13/smartphone.jpg",
+    photoURL: "https://i.ibb.co.com/W2vNnmD/rami-al-zayat-w33-zg-d-NL4-unsplash.jpg",
   },
   {
     id: 2,
     title: "Feature Phones",
-    photoURL: "https://i.ibb.co.com/Q6YN5DP/featured-Phone.jpg",
+    photoURL: "https://i.ibb.co.com/BL8yCRf/1920-top-view-landscape-old-hand-phone-isolated-on-white-background.jpg",
   },
   {
     id: 3,
     title: "Tablets",
-    photoURL: "https://i.ibb.co.com/N3qS4Dy/tablet.jpg",
+    photoURL: "https://i.ibb.co.com/ZcKS4Gf/freepik-a-black-tablet-device-floating-in-the-air-with-var-20303.jpg",
   },
   {
     id: 4,
     title: "Foldable Phones",
-    photoURL: "https://i.ibb.co.com/G3XYy3s/Foldable.jpg",
+    photoURL: "https://i.ibb.co.com/30D09MS/onur-binay-uk5-Frh-Ktr7-E-unsplash.jpg",
   },
   {
     id: 5,
     title: "Gaming Phones",
-    photoURL: "https://i.ibb.co.com/yPVdsB2/gaming-Mobile.jpg",
+    photoURL: "https://i.ibb.co.com/n0cNgMD/56076.jpg",
   },
 ];
 
